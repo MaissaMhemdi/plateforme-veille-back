@@ -4,7 +4,7 @@ import { BaseLayoutComponent } from './shared/components/layouts/base-layout/bas
 
 const baseLayoutRouting: Routes = [
   {
-    path: 'products',
+    path: 'offers',
     loadChildren: () => import('./product/product.module').then(m => m.ProductModule)
   },
   {

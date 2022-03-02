@@ -6,12 +6,12 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./dashboard-order.component.scss']
 })
 export class DashboardOrderComponent implements OnInit {
-  orders = [];
+  users = [];
 
   constructor() {}
 
   ngOnInit(): void {
-    this.orders = [
+    this.users = [
       {
         id: 'e5dcdfsf',
         orderBy: 'Dean Lynch',
