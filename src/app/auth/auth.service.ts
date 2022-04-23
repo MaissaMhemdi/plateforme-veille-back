@@ -8,17 +8,32 @@ import { Login } from './login/login.model';
 
 type JwtToken = {
   id_token: string;
+  user :User;
 };
-
+type User ={
+  id: number;
+  login: string;
+  firstName: string | null;
+  lastName: string | null;
+  email: string;
+  activated: boolean;
+  langKey: string;
+  authorities: string[];
+  createdBy: string;
+  createdDate: Date;
+  lastModifiedBy: string;
+  lastModifiedDate: Date;
+};
 @Injectable({ providedIn: 'root' })
 export class AuthService {
   constructor(private accountService: AccountService, private authServerProvider: AuthServerProvider) {}
 
   login(credentials: Login): Observable<JwtToken> {
-    // return this.authServerProvider.login(credentials).pipe(mergeMap(() => this.accountService.identity(true)));
+     //return this.authServerProvider.login(credentials).pipe(mergeMap(() => this.accountService.identity(true)));
     return this.authServerProvider.login(credentials);
+   
   }
-
+  
   logout(): void {
     this.authServerProvider.logout().subscribe({ complete: () => this.accountService.authenticate(null) });
   }

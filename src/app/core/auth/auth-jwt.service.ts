@@ -10,8 +10,23 @@ import { Account } from './account.model';
 
 type JwtToken = {
   id_token: string;
+  user:User;
 };
-
+type User ={
+  
+    id: number;
+    login: string;
+    firstName: string | null;
+    lastName: string | null;
+    email: string;
+    activated: boolean;
+    langKey: string;
+    authorities: string[];
+    createdBy: string;
+    createdDate: Date;
+    lastModifiedBy: string;
+    lastModifiedDate: Date;
+  };
 const baseUrl = 'http://localhost:8080';
 const API_URL = '/api';
 
@@ -30,13 +45,11 @@ export class AuthServerProvider {
     const tokenInSessionStorage: string | null = this.sessionStorageService.retrieve('authenticationToken');
     return tokenInLocalStorage ?? tokenInSessionStorage ?? '';
   }
-
   login(credentials: Login): Observable<JwtToken> {
     // return this.http
     //   .post<JwtToken>(baseUrl + API_URL + "/authenticate", credentials)
     //   .pipe(map(response => this.authenticateSuccess(response, credentials.rememberMe)));
-
-      return this.http
+     return this.http
       .post<JwtToken>(baseUrl + API_URL + "/authenticate", credentials);
   }
 
@@ -48,14 +61,22 @@ export class AuthServerProvider {
     });
   }
 
-  private authenticateSuccess(response: JwtToken, rememberMe: boolean): void {
+ authenticateSuccess(response: JwtToken, rememberMe: boolean): JwtToken {
     const jwt = response.id_token;
+    const user=response.user;
     if (rememberMe) {
+      this.localStorageService.store('authenticationUser', user);
       this.localStorageService.store('authenticationToken', jwt);
       this.sessionStorageService.clear('authenticationToken');
+      this.localStorageService.clear('authenticationUser');
+
     } else {
+      this.sessionStorageService.store('authenticationUser', user);
       this.sessionStorageService.store('authenticationToken', jwt);
       this.localStorageService.clear('authenticationToken');
+      this.localStorageService.clear('authenticationUser');
+
     }
+    return response;
   }
 }

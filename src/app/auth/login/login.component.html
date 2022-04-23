@@ -1,65 +1,50 @@
-<div class="login__page" [style.background-image]="'url(assets/images/login-bg.jpg)'">
-  <div class="login__row min-h-screen">
-    <!-- <div class="login__hero flex flex-col justify-center items-center py-10 px-4 sm:px-8 xl:px-20 text-white">
+<div class="login__page" [style.background-image]="'url(assets/images/im.jpg)'">
+    <div class="login__row min-h-screen">
+        <!-- <div class="login__hero flex flex-col justify-center items-center py-10 px-4 sm:px-8 xl:px-20 text-white">
       <a [routerLink]="['']" class="w-48 inline-block"><img src="assets/images/tritux.jpg" alt="Lieblings" /></a>
       <h2 class="text-center mt-6">Welcome back!</h2>
     </div> -->
-    <div class="login__content p-4 sm:p-8 flex flex-col justify-center">
-      <div class="login w-full max-w-xl rounded-md mx-auto border p-4 sm:p-8 xl:p-20">
-        <form [formGroup]="loginForm">
-          <h1 class="text-2xl font-bold">Authentification</h1>
-          <div class="alert" *ngIf="authenticationError">
-            <strong>Erreur d'authentification!</strong> Veuillez vérifier vos informations d'identification et réessayer.
-          </div>
-          <div class="mb-4 mt-6">
-            <label class="block text-gray-700 text-sm font-semibold mb-2" htmlFor="email"> Login ou Email </label>
-            <input
-              class="text-sm appearance-none rounded w-full py-2 px-3 text-gray-700 bg-gray-100 leading-tight focus:outline-none focus:shadow-outline h-10"
-              type="text"
-              placeholder="Votre login ou email"
-              formControlName="username"              
-              />
-              <span class="error" *ngIf="checkErrors && loginForm.get('username').errors">Ce champ est obligatoire!</span>
-          </div>
-          <div class="mb-6 mt-6">
-            <label class="block text-gray-700 text-sm font-semibold mb-2" htmlFor="password"> Mot De Passe </label>
-            <input
-              class="text-sm bg-gray-100 appearance-none rounded w-full py-2 px-3 text-gray-700 mb-1 leading-tight focus:outline-none focus:shadow-outline h-10"
-              type="password"
-              placeholder="Votre mot de passe"
-              formControlName="password"
-            />
-            <span class="error" *ngIf="checkErrors && loginForm.get('password').errors">Ce champ est obligatoire!</span>
-          </div>
-          <div class="flex items-center">
-            <input
-              type="checkbox"
-              class="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border rounded"
-              formControlName="rememberMe"
-            />
-            <label for="remember_me" class="ml-2 block text-sm text-gray-900"> Se souvenir de moi </label>
-          </div>
-          <div class="flex w-full mt-6">
-            <button
-              class="w-full bg-gray-800 hover:bg-grey-900 text-white text-sm py-2 px-4 font-semibold rounded focus:outline-none focus:shadow-outline h-10"
-              type="button"
-              (click)="login()"
-            >
+        <div class="login__content p-4 sm:p-8 flex flex-col justify-center">
+            <div class="login w-full max-w-xl rounded-md mx-auto border p-4 sm:p-8 xl:p-20">
+                <div class="alert" *ngIf="authenticationError">
+                    <strong>Erreur d'authentification!</strong> Veuillez vérifier vos informations d'identification et réessayer.
+                </div>
+                <form [formGroup]="loginForm" (ngSubmit)="login()">
+                    <h1 class="text-2xl font-bold">Authentification</h1>
+                    <div class="form-group">
+                        <div class="mb-4 mt-6">
+                            <label class="block text-gray-700 text-sm font-semibold mb-2" htmlFor="email"> Login ou Email </label>
+                            <input class="text-sm appearance-none rounded w-full py-2 px-3 text-gray-700 bg-gray-100 leading-tight focus:outline-none focus:shadow-outline h-10" type="text" placeholder="Votre login ou email" formControlName="username" id="username" />
+                            <span class="error" *ngIf="checkErrors && loginForm.get('username').errors">Ce champ est obligatoire!</span>
+                        </div>
+                    </div>
+                    <div class="mb-6 mt-6">
+                        <label class="block text-gray-700 text-sm font-semibold mb-2" htmlFor="password"> Mot De Passe </label>
+                        <input class="text-sm bg-gray-100 appearance-none rounded w-full py-2 px-3 text-gray-700 mb-1 leading-tight focus:outline-none focus:shadow-outline h-10" type="password" id="password" placeholder="Votre mot de passe" formControlName="password" />
+                        <span class="error" *ngIf="checkErrors && loginForm.get('password').errors">Ce champ est obligatoire!</span>
+                    </div>
+                    <div class="flex items-center">
+                        <input type="checkbox" class="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border rounded" formControlName="rememberMe" />
+                        <label for="remember_me" class="ml-2 block text-sm text-gray-900"> Se souvenir de moi </label>
+                    </div>
+                    <div class="flex w-full mt-6">
+                        <button class="w-full bg-gray-800 hover:bg-grey-900 text-white text-sm py-2 px-4 font-semibold rounded focus:outline-none focus:shadow-outline h-10" type="submit">
               S'authentifier
             </button>
-          </div>
-        </form>
-        <div class="mt-4">
-          <a href="#" class="hover:underline hover:text-accent">Mot de passe oublié?</a>
+                    </div>
+                </form>
+                <div class="mt-4">
+                    <a href="#" class="hover:underline hover:text-accent">Mot de passe oublié?</a>
+                </div>
+                <div class="mt-3">
+                    <span class="text-gray-600 text-sm"> Vous n'avez pas de compte? </span>
+                    <a routerLink="/auth/signup" class="text-gray-700 text-sm font-semibold hover:text-accent"> Inscription </a>
+                </div>
+                <div class="mt-4">
+                    <a [routerLink]="['/']" class="text-gray-700 text-sm hover:text-accent inline-flex items-center">
+                        <mat-icon class="h-4 w-4 leading-4 text-lg mr-2">keyboard_backspace</mat-icon>Retour</a>
+                </div>
+            </div>
         </div>
-        <div class="mt-3">
-          <span class="text-gray-600 text-sm"> Vous n'avez pas de compte? </span>
-          <a routerLink="/auth/signup" class="text-gray-700 text-sm font-semibold hover:text-accent"> Inscription </a>
-        </div>
-        <div class="mt-4">
-          <a [routerLink]="['/']"  class="text-gray-700 text-sm hover:text-accent inline-flex items-center"><mat-icon class="h-4 w-4 leading-4 text-lg mr-2">keyboard_backspace</mat-icon>Retour</a>
-        </div>
-      </div>
     </div>
-  </div>
 </div>

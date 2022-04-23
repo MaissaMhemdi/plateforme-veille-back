@@ -1,0 +1,84 @@
+<div class="grid grid-cols-12 gap-4 lg:gap-8">
+    <div class="col-span-6 md:col-span-4 border rounded px-4 lg:px-8 py-8 lg:py-16">
+        <mat-icon class="text-accent mb-5">archive</mat-icon>
+
+        <h6>Offres Archive</h6>
+
+        <div class="count mb-3 mt-5"></div>
+        <a [routerLink]="'/dashadmin/offresarchived'" class="font-semibold" mat-flat-button color="warn">View All</a>
+    </div>
+    <div class="col-span-6 md:col-span-4 border rounded px-4 lg:px-8 py-8 lg:py-16">
+        <mat-icon class="text-accent mb-5">sync</mat-icon>
+        <h6>Utilisateurs</h6>
+        <div class="count mb-3 mt-5"></div>
+        <a [routerLink]="'/dashboard/orders'" class="font-semibold" mat-flat-button color="warn">View All</a>
+    </div>
+    <!--<div class="col-span-6 md:col-span-4 border rounded px-4 lg:px-8 py-8 lg:py-16">
+      <mat-icon class="text-accent mb-5">task_alt</mat-icon>
+      <h6>Completed orders</h6>
+      <div class="count mb-3 mt-5">10</div>
+      <a [routerLink]="'/dashboard/orders'" class="font-semibold" mat-flat-button color="warn">View All</a>
+  </div>-->
+</div>
+<div class="mt-8">
+    <h5 class="mb-1 font-normal">List offres</h5>
+    <div class="table-responsive">
+        <table class="order-table table-auto ltMd:responsive">
+            <thead>
+                <tr class="border text-left">
+
+                    <th>
+                        <span class="text-gray-800" scope="col">Title</span>
+                    </th>
+                    <th>
+                        <span class="text-gray-800" scope="col">lien</span>
+                    </th>
+                    <th>
+                        <span class="text-gray-800" scope="col">Status</span>
+                    </th>
+                    <th class="text-right">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr scope="row" *ngFor="let offre of offres" class="border">
+
+                    <td>
+                        {{offre.title}}
+                    </td>
+                    <td>
+                        <a href="{{offre.lien}}" class="flex hover:text-primary"> <span>{{offre.lien}}</span></a>
+                    </td>
+
+
+
+
+                    <td class="text-right">
+                        <button class="action_icon__btn" mat-icon-button [matMenuTriggerFor]="menu">
+            <mat-icon>more_vert</mat-icon>
+          </button>
+                        <mat-menu #menu="matMenu" xposition="before">
+                            <button mat-menu-item>
+              <mat-icon>dialpad</mat-icon>
+              <span>Details </span>
+                            </button>
+                            <button mat-menu-item>
+              <mat-icon>delete</mat-icon>
+              <span><button type="button" (click)="deleteOffres(offre.id)">Delete</button></span>
+                            </button>
+                            <button mat-menu-item>
+                                <mat-icon>archive</mat-icon>
+                                <span><button type="button" (click)="getArchived(offre.id)">Archives</button></span>
+                            </button>
+                        </mat-menu>
+                    </td>
+                </tr>
+                <tr scope="row" *ngIf="offres.length === 0">
+                    <td colspan="6" class="text-center">No record found</td>
+                </tr>
+            </tbody>
+        </table>
+        <mat-paginator #paginator [pageSizeOptions]="[10, 25, 100]" [pageSize]="pageSize" [length]="totalElement" (page)="nextPage($event)"> </mat-paginator>
+
+    </div>
+
+</div>

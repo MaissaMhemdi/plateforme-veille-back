@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AccountService } from 'src/app/core/auth/account.service';
+import { AuthServerProvider } from 'src/app/core/auth/auth-jwt.service';
 import { AuthService } from '../auth.service';
 
 @Component({
@@ -24,7 +25,8 @@ export class LoginComponent implements OnInit {
   constructor(private accountService: AccountService,
     private authService: AuthService,
     private router: Router,
-    private fb: FormBuilder) { }
+    private fb: FormBuilder,
+    private authServerProvider:AuthServerProvider) { }
 
   ngOnInit(): void {
      // if already authenticated then navigate to home page
@@ -56,7 +58,7 @@ export class LoginComponent implements OnInit {
         if(res){
           console.log("Token::  " + res.id_token)
           this.authenticationError = false;
-          this.router.navigate(['/']);
+          this.router.navigate(['/dashadmin']);
         } else {
           this.authenticationError = true
         }

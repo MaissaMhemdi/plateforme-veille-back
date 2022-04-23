@@ -10,6 +10,8 @@ import { ApplicationConfigService } from '../config/application-config.service';
 import { Account } from './account.model';
 import { StateStorageService } from './state-storage.service';
 
+const baseUrl = 'http://localhost:8080';
+const API_URL = '/api';
 @Injectable({ providedIn: 'root' })
 export class AccountService {
   private userIdentity: Account | null = null;
@@ -26,7 +28,8 @@ export class AccountService {
   ) {}
 
   save(account: Account): Observable<{}> {
-    return this.http.post(this.applicationConfigService.getEndpointFor('api/account'), account);
+    return this.http.post(this.applicationConfigService.getEndpointFor(baseUrl + API_URL + "/account"), account);
+    //return this.http.post(baseUrl + API_URL + "/account", account);
   }
 
   authenticate(identity: Account | null): void {
@@ -78,8 +81,9 @@ export class AccountService {
     return this.authenticationState.asObservable();
   }
 
-  private fetch(): Observable<Account> {
-    return this.http.get<Account>(this.applicationConfigService.getEndpointFor('api/account'));
+  private fetch(): Observable<Account>  {
+  //return this.http.get<Account>(baseUrl + API_URL + "/account");
+    return this.http.get<Account>(this.applicationConfigService.getEndpointFor(baseUrl + API_URL + "/account"));
   }
 
   private navigateToStoredUrl(): void {

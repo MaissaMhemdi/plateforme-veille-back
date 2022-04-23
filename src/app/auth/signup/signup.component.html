@@ -1,66 +1,129 @@
-<div class="login__page" [style.background-image]="'url(assets/images/login-bg.jpg)'">
-  <div class="login__row min-h-screen">
-    <!-- <div class="login__hero flex flex-col justify-center items-center py-10 px-4 sm:px-8 xl:px-20 text-white">
+<div class="login__page" [style.background-image]="'url(assets/images/im.jpg)'">
+    <div class="login__row min-h-screen">
+        <!-- <div class="login__hero flex flex-col justify-center items-center py-10 px-4 sm:px-8 xl:px-20 text-white">
       <a [routerLink]="['']" class="w-48 inline-block"><img src="assets/images/tritux.jpg" alt="Lieblings" /></a>
       <h2 class="text-center mt-6">TO KEEP CONNECTED WITH LARGEST IN THE WORLD</h2>
     </div> -->
-    <div class="login__content p-4 sm:p-8 flex flex-col justify-center">
-      <div class="login w-full max-w-xl rounded-md mx-auto border p-4 sm:p-8 xl:p-20">
-        <form>
-          <h1 class="text-2xl font-bold">Inscription</h1>
-          <div class="mb-4 mt-6">
-            <label class="block text-gray-700 text-sm font-semibold mb-2" for="email"> Login ou Email </label>
-            <input
-              class="text-sm appearance-none rounded w-full py-2 px-3 text-gray-700 bg-gray-100 leading-tight focus:outline-none focus:shadow-outline h-10"
-              id="email"
-              type="text"
-              placeholder="Login ou Email"
-            />
-          </div>
-          <div class="mb-6 mt-6">
-            <label class="block text-gray-700 text-sm font-semibold mb-2" for="password"> Mot de passe </label>
-            <input
-              class="text-sm bg-gray-100 appearance-none rounded w-full py-2 px-3 text-gray-700 mb-1 leading-tight focus:outline-none focus:shadow-outline h-10"
-              id="password"
-              type="password"
-              placeholder="Mot de passe"
-            />
-          </div>
-          <div class="mb-6 mt-6">
-            <label class="block text-gray-700 text-sm font-semibold mb-2" for="password2"> Confirmation Mot De Passe </label>
-            <input
-              class="text-sm bg-gray-100 appearance-none rounded w-full py-2 px-3 text-gray-700 mb-1 leading-tight focus:outline-none focus:shadow-outline h-10"
-              id="password2"
-              type="password"
-              placeholder="Confirmation Mot De Passe"
-            />
-          </div>
-          <div class="flex items-center">
-            <input
-              id="remember_me"
-              name="remember_me"
-              type="checkbox"
-              class="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border rounded"
-            />
-            <label for="remember_me" class="ml-2 block text-sm text-gray-900"> Je suis d'accord avec Termes et Conditions. </label>
-          </div>
-          <div class="flex w-full mt-6">
-            <button
-              class="w-full bg-gray-800 hover:bg-grey-900 text-white text-sm py-2 px-4 font-semibold rounded focus:outline-none focus:shadow-outline h-10"
-              type="button"
-            >
+        <div class="login__content p-4 sm:p-8 flex flex-col justify-center">
+            <div class="login w-full max-w-xl rounded-md mx-auto border p-4 sm:p-8 xl:p-20">
+                <form [formGroup]="registerForm" *ngIf="!success">
+                    <h1 class="text-2xl font-bold">Inscription</h1>
+                    <div class="alert" *ngIf="success">
+                        <strong>Registration saved!</strong> Please check your email for confirmation.
+                    </div>
+
+                    <div class="alert" *ngIf="error">
+                        <strong>Registration failed!</strong> Please try again later.
+                    </div>
+
+                    <div class="alert" *ngIf="errorUserExists">
+                        <strong>Login name already registered!</strong> Please choose another one.
+                    </div>
+
+                    <div class="alert" *ngIf="errorEmailExists">
+                        <strong>Cet email est déjà utilisé! 
+                        </strong> Veuillez en choisir un autre .
+                    </div>
+
+                    <div class="alert" *ngIf="doNotMatch">
+                        Le mot de passe et sa confirmation ne correspondent pas !
+                    </div>
+
+                    <div class="mb-4 mt-6">
+                        <label class="block text-gray-700 text-sm font-semibold mb-2" for="login"> Login ou Email </label>
+                        <input class="text-sm appearance-none rounded w-full py-2 px-3 text-gray-700 bg-gray-100 leading-tight focus:outline-none focus:shadow-outline h-10" id="login" type="text" placeholder="Login ou Email" formControlName="login" />
+                        <div *ngIf="registerForm.get('login')!.invalid && (registerForm.get('login')!.dirty || registerForm.get('login')!.touched)">
+                            <small class="form-text text-danger" *ngIf="registerForm.get('login')?.errors?.required">
+                              Votre nom d'utilisateur est requis. 
+                          </small>
+
+                            <small class="form-text text-danger" *ngIf="registerForm.get('login')?.errors?.minlength">
+                              Votre nom d'utilisateur doit comporter au moins 1 caractère.                           </small>
+
+                            <small class="form-text text-danger" *ngIf="registerForm.get('login')?.errors?.maxlength">
+                              Votre nom d'utilisateur ne peut pas dépasser 50 caractères. 
+                          </small>
+
+                            <small class="form-text text-danger" *ngIf="registerForm.get('login')?.errors?.pattern">
+                              Votre nom d'utilisateur ne peut contenir que des lettres et des chiffres. 
+                          </small>
+                        </div>
+                    </div>
+
+                    <div class="mb-4 mt-6">
+                        <label class="block text-gray-700 text-sm font-semibold mb-2" for="email"> Email </label>
+                        <input class="text-sm appearance-none rounded w-full py-2 px-3 text-gray-700 bg-gray-100 leading-tight focus:outline-none focus:shadow-outline h-10" id="email" type="text" placeholder="Email" formControlName="email" />
+                        <div *ngIf="registerForm.get('email')!.invalid && (registerForm.get('email')!.dirty || registerForm.get('email')!.touched)">
+                            <small class="form-text text-danger" *ngIf="registerForm.get('email')?.errors?.required">
+                              Votre e-mail est obligatoire.                          </small>
+
+                            <small class="form-text text-danger" *ngIf="registerForm.get('email')?.errors?.invalid">
+                              Votre email est invalide.
+                          </small>
+
+                            <small class="form-text text-danger" *ngIf="registerForm.get('email')?.errors?.minlength">
+                              Votre e-mail doit comporter au moins 5 caractères.                          </small>
+
+                            <small class="form-text text-danger" *ngIf="registerForm.get('email')?.errors?.maxlength">
+                              Votre e-mail ne peut pas dépasser 100 caractères.                          </small>
+                        </div>
+                    </div>
+                    <div class="mb-6 mt-6">
+                        <label class="block text-gray-700 text-sm font-semibold mb-2" for="password"> Mot de passe </label>
+                        <input class="text-sm bg-gray-100 appearance-none rounded w-full py-2 px-3 text-gray-700 mb-1 leading-tight focus:outline-none focus:shadow-outline h-10" id="password" type="password" placeholder="Mot de passe" formControlName="password" />
+                        <div *ngIf="registerForm.get('password')!.invalid && (registerForm.get('password')!.dirty || registerForm.get('password')!.touched)">
+                            <small class="form-text text-danger" *ngIf="registerForm.get('password')?.errors?.required">
+                              Votre mot de passe est obligatoire.
+                        </small>
+
+                            <small class="form-text text-danger" *ngIf="registerForm.get('password')?.errors?.minlength">
+                              Votre mot de passe doit comporter au moins 4 caractères.                        </small>
+
+                            <small class="form-text text-danger" *ngIf="registerForm.get('password')?.errors?.maxlength">
+                              Votre mot de passe ne peut pas dépasser 50 caractères.                         </small>
+                        </div>
+
+                    </div>
+                    <div class="mb-6 mt-6">
+                        <label class="block text-gray-700 text-sm font-semibold mb-2" for="confirmPassword"> Confirmation Mot De Passe </label>
+                        <input class="text-sm bg-gray-100 appearance-none rounded w-full py-2 px-3 text-gray-700 mb-1 leading-tight focus:outline-none focus:shadow-outline h-10" id="confirmPassword" type="password" placeholder="Confirmation Mot De Passe" formControlName="confirmPassword"
+                        />
+                        <div *ngIf="
+                          registerForm.get('confirmPassword')!.invalid &&
+                          (registerForm.get('confirmPassword')!.dirty || registerForm.get('confirmPassword')!.touched)
+                        ">
+                            <small class="form-text text-danger" *ngIf="registerForm.get('confirmPassword')?.errors?.required">
+                          Your confirmation password is required.
+                        </small>
+
+                            <small class="form-text text-danger" *ngIf="registerForm.get('confirmPassword')?.errors?.minlength">
+                              Votre mot de passe de confirmation est obligatoire.                         </small>
+
+                            <small class="form-text text-danger" *ngIf="registerForm.get('confirmPassword')?.errors?.maxlength">
+                              Your confirmation password cannot be longer than 50 characters.
+                            </small>
+                        </div>
+
+                    </div>
+                    <div class="flex items-center">
+                        <input id="remember_me" name="remember_me" type="checkbox" class="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border rounded" />
+                        <label for="remember_me" class="ml-2 block text-sm text-gray-900"> Je suis d'accord avec Termes et Conditions. </label>
+                    </div>
+                    <div class="flex w-full mt-6">
+                        <button class="w-full bg-gray-800 hover:bg-grey-900 text-white text-sm py-2 px-4 font-semibold rounded focus:outline-none focus:shadow-outline h-10" type="button" (click)="register()">
               S'inscrire
             </button>
-          </div>
-        </form>
-        <div class="mt-3">
-          <span class="text-gray-600 text-sm"> Vous êtes déjà inscri? </span>
-          <a routerLink="/auth/login" class="text-gray-700 text-sm font-semibold hover:text-accent"> login </a>
+                    </div>
+                </form>
+                <div class="mt-3">
+                    <span class="text-gray-600 text-sm"> Vous êtes déjà inscri? </span>
+                    <a routerLink="/auth/login" class="text-gray-700 text-sm font-semibold hover:text-accent"> login </a>
+                </div>
+                <div class="mt-4">
+                    <a [routerLink]="['/']" class="text-gray-700 text-sm hover:text-accent inline-flex items-center">
+                        <mat-icon class="h-4 w-4 leading-4 text-lg mr-2">keyboard_backspace</mat-icon>Retour</a>
+                </div>
+            </div>
         </div>
-        <div class="mt-4">
-          <a [routerLink]="['/']"  class="text-gray-700 text-sm hover:text-accent inline-flex items-center"><mat-icon class="h-4 w-4 leading-4 text-lg mr-2">keyboard_backspace</mat-icon>Retour</a>
-        </div>
-      </div>
     </div>
-  </div>
 </div>
