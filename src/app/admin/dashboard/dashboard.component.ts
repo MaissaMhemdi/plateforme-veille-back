@@ -25,7 +25,9 @@ export class DashboardComponent implements OnInit {
      this.getOffres();
      
    }
-
+   detailsOffre(id: string) {
+    this.router.navigate(['/detail', id]);
+  }
    private getOffres() {
     this.offresService.getOffresListNotArchives(this.pageSize,this.pageElement)
     .subscribe(data => {

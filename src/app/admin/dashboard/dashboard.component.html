@@ -59,7 +59,8 @@
                         <mat-menu #menu="matMenu" xposition="before">
                             <button mat-menu-item>
               <mat-icon>dialpad</mat-icon>
-              <span>Details </span>
+              <span><button type="button" (click)="detailsOffre(offre.id)">Details</button></span>
+
                             </button>
                             <button mat-menu-item>
               <mat-icon>delete</mat-icon>

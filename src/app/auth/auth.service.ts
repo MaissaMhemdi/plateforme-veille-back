@@ -8,7 +8,7 @@ import { Login } from './login/login.model';
 
 type JwtToken = {
   id_token: string;
-  user :User;
+  user: User;
 };
 type User ={
   id: number;
@@ -28,9 +28,9 @@ type User ={
 export class AuthService {
   constructor(private accountService: AccountService, private authServerProvider: AuthServerProvider) {}
 
-  login(credentials: Login): Observable<JwtToken> {
-     //return this.authServerProvider.login(credentials).pipe(mergeMap(() => this.accountService.identity(true)));
-    return this.authServerProvider.login(credentials);
+  login(credentials: Login): Observable<Account> {
+     return this.authServerProvider.login(credentials).pipe(mergeMap(() => this.accountService.identity(true)));
+    //return this.authServerProvider.login(credentials);
    
   }
   

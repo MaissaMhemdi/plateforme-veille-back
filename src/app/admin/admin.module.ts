@@ -8,6 +8,10 @@ import { DashLayoutComponent } from './dash-layout/dash-layout.component';
 import { SharedModule } from '../shared/shared.module';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { NgParticlesModule } from 'ng-particles';
+import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
+import { MatIconModule } from '@angular/material/icon';
 
 
 @NgModule({
@@ -22,6 +26,11 @@ import { MatPaginatorModule } from '@angular/material/paginator';
     SharedModule,
     MatMenuModule,
     MatPaginatorModule,
+    MatExpansionModule,
+    NgParticlesModule,
+    NgxSkeletonLoaderModule, 
+    
+
     
   
   ]

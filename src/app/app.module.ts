@@ -6,7 +6,7 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SharedModule } from './shared/shared.module';
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
-import { LocalStorageService, SessionStorageService } from 'ngx-webstorage';
+import { LocalStorageService, NgxWebstorageModule, SessionStorageService } from 'ngx-webstorage';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatChipsModule } from '@angular/material/chips';
 
@@ -17,7 +17,9 @@ import { GoogleComponent } from './google/google.component';
 @NgModule({
   declarations: [AppComponent],
   imports: [BrowserModule, AppRoutingModule, BrowserAnimationsModule, SharedModule, NgxSkeletonLoaderModule,
-  MatPaginatorModule,MatChipsModule,MatTableModule
+  MatPaginatorModule,MatChipsModule,MatTableModule,
+  NgxWebstorageModule.forRoot({ prefix: 'jhi', separator: '-', caseSensitive: true }),
+
   ],
   providers: [SessionStorageService, LocalStorageService],
   bootstrap: [AppComponent]

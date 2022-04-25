@@ -4,6 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { OffresArchivesComponent } from './offres-archives/offres-archives.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { DashLayoutComponent } from './dash-layout/dash-layout.component';
+import { OffreDetailsComponent } from './offre-details/offre-details.component';
 
 
 const DashboardChildrenRoute: Routes = [
@@ -16,7 +17,9 @@ const DashboardChildrenRoute: Routes = [
     path: 'offresarchived',
     component: OffresArchivesComponent
   },
-  
+  { path: 'detail/:id',
+  component: OffreDetailsComponent },
+
   
 ];
 

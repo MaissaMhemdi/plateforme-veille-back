@@ -32,12 +32,14 @@ export class AccountService {
     //return this.http.post(baseUrl + API_URL + "/account", account);
   }
 
-  authenticate(identity: Account | null): void {
+  authenticate(identity: Account | null): string[] {
     this.userIdentity = identity;
     this.authenticationState.next(this.userIdentity);
     if (!identity) {
       this.accountCache$ = null;
+      return null;
     }
+    return this.userIdentity.authorities;
   }
 
   hasAnyAuthority(authorities: string[] | string): boolean {
@@ -49,6 +51,15 @@ export class AccountService {
     }
     return this.userIdentity.authorities.some((authority: string) => authorities.includes(authority));
   }
+
+  getAuthorities(): string[] {
+    console.log("userrrrrrrr  ", this.userIdentity)
+    if (!this.userIdentity) {
+      return null;
+    }
+    return this.userIdentity.authorities;
+  }
+
 
   identity(force?: boolean): Observable<Account | null> {
     if (!this.accountCache$ || force) {

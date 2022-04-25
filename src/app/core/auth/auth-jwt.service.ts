@@ -7,6 +7,7 @@ import { LocalStorageService, SessionStorageService } from 'ngx-webstorage';
 import { ApplicationConfigService } from '../config/application-config.service';
 import { Login } from 'src/app/auth/login/login.model';
 import { Account } from './account.model';
+import { AccountService } from './account.service';
 
 type JwtToken = {
   id_token: string;
@@ -37,7 +38,8 @@ export class AuthServerProvider {
     private http: HttpClient,
     private localStorageService: LocalStorageService,
     private sessionStorageService: SessionStorageService,
-    private applicationConfigService: ApplicationConfigService
+    private applicationConfigService: ApplicationConfigService,
+    private accountService: AccountService
   ) {}
 
   getToken(): string {
@@ -45,12 +47,14 @@ export class AuthServerProvider {
     const tokenInSessionStorage: string | null = this.sessionStorageService.retrieve('authenticationToken');
     return tokenInLocalStorage ?? tokenInSessionStorage ?? '';
   }
-  login(credentials: Login): Observable<JwtToken> {
+  login(credentials: Login): Observable<void> {
     // return this.http
     //   .post<JwtToken>(baseUrl + API_URL + "/authenticate", credentials)
     //   .pipe(map(response => this.authenticateSuccess(response, credentials.rememberMe)));
      return this.http
-      .post<JwtToken>(baseUrl + API_URL + "/authenticate", credentials);
+      .post<JwtToken>(baseUrl + API_URL + "/authenticate", credentials)
+      .pipe(map(response => this.authenticateSuccess(response, credentials.rememberMe)));
+
   }
 
   logout(): Observable<void> {
@@ -61,22 +65,17 @@ export class AuthServerProvider {
     });
   }
 
- authenticateSuccess(response: JwtToken, rememberMe: boolean): JwtToken {
+ authenticateSuccess(response: JwtToken, rememberMe: boolean): void {
     const jwt = response.id_token;
-    const user=response.user;
     if (rememberMe) {
-      this.localStorageService.store('authenticationUser', user);
       this.localStorageService.store('authenticationToken', jwt);
       this.sessionStorageService.clear('authenticationToken');
       this.localStorageService.clear('authenticationUser');
 
     } else {
-      this.sessionStorageService.store('authenticationUser', user);
       this.sessionStorageService.store('authenticationToken', jwt);
       this.localStorageService.clear('authenticationToken');
       this.localStorageService.clear('authenticationUser');
-
     }
-    return response;
   }
 }
