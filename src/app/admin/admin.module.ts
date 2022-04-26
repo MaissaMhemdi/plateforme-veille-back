@@ -12,6 +12,7 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { NgParticlesModule } from 'ng-particles';
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 import { MatIconModule } from '@angular/material/icon';
+import { OffreDetailsComponent } from './offre-details/offre-details.component';
 
 
 @NgModule({
@@ -19,6 +20,7 @@ import { MatIconModule } from '@angular/material/icon';
     OffresArchivesComponent,
     DashboardComponent,
     DashLayoutComponent,
+    OffreDetailsComponent
   ],
   imports: [
     CommonModule,
@@ -29,10 +31,7 @@ import { MatIconModule } from '@angular/material/icon';
     MatExpansionModule,
     NgParticlesModule,
     NgxSkeletonLoaderModule, 
-    
-
-    
-  
+    MatIconModule
   ]
 })
 export class AdminModule { }

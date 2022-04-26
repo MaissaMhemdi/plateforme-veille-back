@@ -2,21 +2,17 @@
     <mat-sidenav-container class="kl-sidenav-container">
         <mat-sidenav #sidenav [opened]="false" [mode]="'over'" [fixedInViewport]="isLessThenLargeDevice">
             <div class="rounded-md border overflow-hidden w-72">
-                <div class="user text-center bg-primary py-10 px-5">
-                    <img class="ml-auto mr-auto" src="assets/images/avatar.png" alt="abraham lincoln" />
-                    <h4 class="text-base text-white mt-3">Abraham Lincoln</h4>
-                </div>
+
                 <mat-nav-list class="_sidenav">
                     <a mat-list-item routerLink="/dashadmin" [routerLinkActiveOptions]="{ exact: true }" routerLinkActive="bg-gray-200" class="font-semibold text-gray-500 hover:text-primary">
                         <mat-icon class="mr-2">dashboard</mat-icon> Dashboard</a>
-                    <a mat-list-item routerLink="/dashadmin/profile" routerLinkActive="bg-gray-200" class="font-semibold text-gray-500 hover:text-primary">
-                        <mat-icon class="mr-2">account_circle</mat-icon> View my profile</a>
+                    <a mat-list-item routerLink="/dashadmin/offresNot" routerLinkActive="bg-gray-200" class="font-semibold text-gray-500 hover:text-primary">
+                        <mat-icon class="mr-2">list</mat-icon> Liste des Offres</a>
                     <a mat-list-item routerLink="/dashadmin/offresarchived" routerLinkActive="bg-gray-200" class="font-semibold text-gray-500 hover:text-primary">
-                        <mat-icon class="mr-2">list</mat-icon>List Offres</a>
-                    <a mat-list-item routerLink="/dashadmin/user" routerLinkActive="bg-gray-200" class="font-semibold text-gray-500 hover:text-primary">
+                        <mat-icon class="mr-2">archive</mat-icon> Liste des Offres Archives</a>
+                    <a mat-list-item routerLink="/dashboard/user-management" routerLinkActive="bg-gray-200" class="font-semibold text-gray-500 hover:text-primary">
                         <mat-icon class="mr-2">article</mat-icon> Utilisateurs</a>
-                    <a (click)="onLogout()" mat-list-item class="font-semibold text-gray-500 hover:text-primary">
-                        <mat-icon class="mr-2">logout</mat-icon> Logout</a>
+
                 </mat-nav-list>
             </div>
         </mat-sidenav>
@@ -31,12 +27,14 @@
             <mat-icon>menu</mat-icon>
           </button>
                         <div class="items-center flex ml-auto">
-                            <button mat-icon-button>
+                            <button mat-icon-button routerLink="/dashadmin/profile">
               <mat-icon>notifications</mat-icon>
             </button>
                             <button mat-icon-button>
               <mat-icon>account_circle</mat-icon>
             </button>
+                            <button mat-icon-button (click)="onLogout()">
+                <mat-icon class="mr-2">logout</mat-icon> </button>
                         </div>
                     </div>
                 </div>
@@ -48,21 +46,16 @@
                         <div class="col-span-3 hidden xl:block">
                             <div class="py-5 min-h-screen">
                                 <div class="rounded-md border overflow-hidden h-full">
-                                    <div class="user text-center bg-primary py-10 px-5">
-                                        <img class="ml-auto mr-auto" src="assets/images/avatar.png" alt="abraham lincoln" />
-                                        <h4 class="text-white mt-3">Abraham Lincoln</h4>
-                                    </div>
                                     <mat-nav-list class="_sidenav">
                                         <a mat-list-item routerLink="/dashadmin" [routerLinkActiveOptions]="{ exact: true }" routerLinkActive="bg-gray-200" class="font-semibold text-gray-500 hover:text-primary">
                                             <mat-icon class="mr-2">dashboard</mat-icon> Dashboard</a>
-                                        <a mat-list-item routerLink="/dashboard/profile" routerLinkActive="bg-gray-200" class="font-semibold text-gray-500 hover:text-primary">
-                                            <mat-icon class="mr-2">account_circle</mat-icon> View my profile</a>
+                                        <a mat-list-item routerLink="/dashadmin/offresNot" routerLinkActive="bg-gray-200" class="font-semibold text-gray-500 hover:text-primary">
+                                            <mat-icon class="mr-2">list</mat-icon> Liste des Offres</a>
                                         <a mat-list-item routerLink="/dashadmin/offresarchived" routerLinkActive="bg-gray-200" class="font-semibold text-gray-500 hover:text-primary">
-                                            <mat-icon class="mr-2">list</mat-icon> List Offres</a>
-                                        <a mat-list-item routerLink="/dashboard/orders" routerLinkActive="bg-gray-200" class="font-semibold text-gray-500 hover:text-primary">
+                                            <mat-icon class="mr-2">archive</mat-icon> Liste des Offres Archives</a>
+                                        <a mat-list-item routerLink="/dashboard/user-management" routerLinkActive="bg-gray-200" class="font-semibold text-gray-500 hover:text-primary">
                                             <mat-icon class="mr-2">article</mat-icon> Utilisateurs</a>
-                                        <a (click)="onLogout()" mat-list-item class="font-semibold text-gray-500 hover:text-primary">
-                                            <mat-icon class="mr-2">logout</mat-icon> Logout</a>
+
                                     </mat-nav-list>
                                 </div>
                             </div>

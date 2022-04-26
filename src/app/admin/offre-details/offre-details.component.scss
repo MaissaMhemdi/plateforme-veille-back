@@ -1,70 +1,166 @@
-.product-meta {
-    li {
-        color: #848484;
-        border-right: 1px solid #d6d6d6;
-        &:last-child {
-            border: 0;
+    .product-meta {
+        li {
+            color: #848484;
+            border-right: 1px solid #d6d6d6;
+            &:last-child {
+                border: 0;
+            }
         }
     }
-}
-
-.ll-content {
-    h2,
-    h3,
-    h4,
-    h5,
-    h6 {
-        margin-bottom: 10px;
-        margin-top: 30px;
+    
+    .ll-content {
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            margin-bottom: 10px;
+            margin-top: 30px;
+        }
+        p {
+            margin-bottom: 15px;
+            color: #7c7777;
+        }
+        ul,
+        ol,
+        dl {
+            padding-left: 1.25rem;
+            list-style-position: outside;
+        }
+        ul {
+            list-style-type: disc;
+        }
+        ol {
+            list-style-type: decimal;
+        }
+        li {
+            color: #7c7777;
+            padding: 3px 0;
+        }
+        blockquote {
+            background-color: #f3f3f3;
+            padding: 20px;
+            margin-bottom: 20px;
+            margin-top: 20px;
+        }
     }
-    p {
-        margin-bottom: 15px;
-        color: #7c7777;
+    
+    .service-info {
+        li {
+            color: #767676;
+            font-size: 0.85rem;
+            display: inline-block;
+        }
+        .mat-icon {
+            font-size: 14px;
+        }
     }
-    ul,
-    ol,
-    dl {
-        padding-left: 1.25rem;
-        list-style-position: outside;
+    
+    @media (min-width: 992px) and (max-width: 1199px) {
+        ._title {
+            font-size: 2rem;
+        }
     }
-    ul {
-        list-style-type: disc;
+    
+    @media (max-width: 991px) {
+        ._title {
+            font-size: 1.7rem;
+            line-height: 2.7rem;
+        }
     }
-    ol {
-        list-style-type: decimal;
+    
+    body {
+        font-family: Arial, Helvetica, sans-serif;
     }
-    li {
-        color: #7c7777;
-        padding: 3px 0;
+    
+    * {
+        box-sizing: border-box;
     }
-    blockquote {
-        background-color: #f3f3f3;
+    /* Button used to open the contact form - fixed at the bottom of the page */
+    /* The popup form - hidden by default */
+    
+    .form-popup {
+        display: none;
+        position: fixed;
+        bottom: 0;
+        right: 15px;
+        border: 3px solid #f1f1f1;
+        z-index: 9;
+    }
+    /* Add styles to the form container */
+    
+    .texta {
+        margin-right: 90px;
+        height: 106px;
+        width: 310px;
+        padding-top: 10px;
+        margin-top: 31px;
+    }
+    
+    .can {
+        margin-left: 302px;
+    }
+    
+    .form-container {
+        max-width: 354px;
         padding: 20px;
-        margin-bottom: 20px;
-        margin-top: 20px;
+        background-color: white;
     }
-}
-
-.service-info {
-    li {
-        color: #767676;
-        font-size: 0.85rem;
-        display: inline-block;
+    
+    button,
+    input,
+    optgroup,
+    select,
+    textarea {
+        font-family: inherit;
+        font-size: 52%;
+        line-height: 1.15;
+        margin: 0;
     }
-    .mat-icon {
-        font-size: 14px;
+    /* Full-width input fields */
+    
+    .form-container input[type=text],
+    .form-container input[type=password] {
+        width: 99%;
+        padding: 18px;
+        margin: 4px 0 22px 0;
+        border: #080808;
+        background: #898686;
+        font-size: 47%;
     }
-}
-
-@media (min-width: 992px) and (max-width: 1199px) {
-    ._title {
-        font-size: 2rem;
+    
+    element.style {
+        width: 203px;
+        padding-left: 81px;
     }
-}
-
-@media (max-width: 991px) {
-    ._title {
-        font-size: 1.7rem;
-        line-height: 2.7rem;
+    /* When the inputs get focus, do something */
+    
+    .form-container input[type=text]:focus,
+    .form-container input[type=password]:focus {
+        background-color: #ddd;
+        outline: none;
     }
-}
+    /* Set a style for the submit/login button */
+    
+    .form-container .btn {
+        background-color: #04AA6D;
+        color: white;
+        padding: 6px 95px;
+        /* border: aquamarine; */
+        border-radius: 35px;
+        cursor: pointer;
+        width: 68%;
+        margin-bottom: 4px;
+        opacity: 0.8;
+    }
+    /* Add a red background color to the cancel button */
+    
+    .form-container .cancel {
+        background-color: red;
+    }
+    /* Add some hover effects to buttons */
+    
+    .form-container .btn:hover,
+    .open-button:hover {
+        opacity: 1;
+    }

@@ -9,20 +9,23 @@ import { OffresServiceService } from 'src/app/services/offres-service.service';
   styleUrls: ['./offre-details.component.scss']
 })
 export class OffreDetailsComponent implements OnInit {
-  id: string;
-  offre: Offre;
+
+  public offre?: any;
   constructor(private route: ActivatedRoute, private router: Router,
     private offreService: OffresServiceService ) { }
 
   ngOnInit(): void {
-    this.offre = new Offre();
 
-    this.id = this.route.snapshot.params.id;
-    this.offreService.getOffres(this.id)
-      .subscribe(data => {
-        console.log(data),
-        this.offre = data;
-      }, error => console.log(error));
+
+  const offreid = this.route.snapshot.params.id;
+    this.offreService.getOffres(offreid)
+      .subscribe(offre => this.offre = offre);
   }
+openForm() {
+    document.getElementById("myForm").style.display = "block";
+}
 
+ closeForm() {
+    document.getElementById("myForm").style.display = "none";
+}
 }

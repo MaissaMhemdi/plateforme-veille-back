@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import {  RouterModule, Routes } from '@angular/router';
-import { OffreDetailsComponent } from '../offres/offre-details/offre-details.component';
+import { OffreDetailsComponent } from './offre-details/offre-details.component';
 
 import { DashLayoutComponent } from './dash-layout/dash-layout.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
