@@ -10,10 +10,15 @@ import { AccountService } from 'src/app/core/auth/account.service';
 })
 export class DashLayoutComponent implements OnInit {
   isLessThenLargeDevice;
+  authorities;
 
   constructor(private breakpointObserver: BreakpointObserver, private router: Router, private accountService: AccountService) {}
 
   ngOnInit(): void {
+    this.accountService.getAuthorities().subscribe(res => {
+      this.authorities = res;
+      console.log("ressss ", this.authorities)
+    });
       this.breakpointObserver.observe(['(max-width: 1199px)']).subscribe(({ matches }) => {
       this.isLessThenLargeDevice = matches;
     });

@@ -81,7 +81,7 @@ export class LoginComponent implements OnInit {
 
           // console.log("auuuth " + this.accountService.authenticate(account));
          
-          console.log("Token::  " + this.authServerProvider.getToken())
+         console.log("Token:" + this.authServerProvider.getToken());
           this.authenticationError = false;
           this.router.navigate(['/dashadmin']);
         } else {

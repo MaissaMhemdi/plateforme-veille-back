@@ -41,19 +41,30 @@ export class AuthServerProvider {
     private applicationConfigService: ApplicationConfigService,
     private accountService: AccountService
   ) {}
-
+  ACCESS_TOKEN = 'access_token';
+  USER_CONNECT = 'user_connect';
   getToken(): string {
-    const tokenInLocalStorage: string | null = this.localStorageService.retrieve('authenticationToken');
-    const tokenInSessionStorage: string | null = this.sessionStorageService.retrieve('authenticationToken');
-    return tokenInLocalStorage ?? tokenInSessionStorage ?? '';
+    const tokenInLocalStorage= localStorage.getItem('access_token');
+    const tokenInsessionStorage= sessionStorage.getItem('access_token');
+
+    return tokenInLocalStorage ?? tokenInsessionStorage ?? '';
   }
-  login(credentials: Login): Observable<void> {
+  login(credentials: Login): Observable<JwtToken> {
     // return this.http
     //   .post<JwtToken>(baseUrl + API_URL + "/authenticate", credentials)
     //   .pipe(map(response => this.authenticateSuccess(response, credentials.rememberMe)));
      return this.http
       .post<JwtToken>(baseUrl + API_URL + "/authenticate", credentials)
-      .pipe(map(response => this.authenticateSuccess(response, credentials.rememberMe)));
+      .pipe(
+        map((res: JwtToken) => {
+          const access_token = res?.id_token;
+          var user_connect =res?.user;
+          localStorage.setItem(this.ACCESS_TOKEN, access_token)
+          sessionStorage.setItem(this.ACCESS_TOKEN, access_token)
+          localStorage.setItem(this.USER_CONNECT, JSON.stringify(user_connect))
+          sessionStorage.setItem(this.USER_CONNECT, JSON.stringify(user_connect))
+          return res
+        }))
 
   }
 
@@ -68,14 +79,14 @@ export class AuthServerProvider {
  authenticateSuccess(response: JwtToken, rememberMe: boolean): void {
     const jwt = response.id_token;
     if (rememberMe) {
-      this.localStorageService.store('authenticationToken', jwt);
-      this.sessionStorageService.clear('authenticationToken');
-      this.localStorageService.clear('authenticationUser');
+      //this.localStorageService.store('authenticationToken', jwt);
+      //this.sessionStorageService.clear('authenticationToken');
+      //this.localStorageService.clear('authenticationUser');
 
     } else {
-      this.sessionStorageService.store('authenticationToken', jwt);
-      this.localStorageService.clear('authenticationToken');
-      this.localStorageService.clear('authenticationUser');
+      //this.sessionStorageService.store('authenticationToken', jwt);
+      //this.localStorageService.clear('authenticationToken');
+      //this.localStorageService.clear('authenticationUser');
     }
   }
 }

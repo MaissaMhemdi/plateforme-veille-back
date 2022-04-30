@@ -52,12 +52,16 @@ export class AccountService {
     return this.userIdentity.authorities.some((authority: string) => authorities.includes(authority));
   }
 
-  getAuthorities(): string[] {
-    console.log("userrrrrrrr  ", this.userIdentity)
-    if (!this.userIdentity) {
-      return null;
-    }
-    return this.userIdentity.authorities;
+  // getAuthorities(): string[] {
+  //   console.log("userrrrrrrr  ", this.userIdentity)
+  //   if (!this.userIdentity) {
+  //     return null;
+  //   }
+  //   return this.userIdentity.authorities;
+  // }
+
+  getAuthorities(): Observable<string[]> {
+    return this.http.get<string[]>(this.applicationConfigService.getEndpointFor(baseUrl + API_URL + "/authorities"));
   }
 
 

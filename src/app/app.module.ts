@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import locale from '@angular/common/locales/fr';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -12,6 +13,9 @@ import { MatChipsModule } from '@angular/material/chips';
 
 import { MatTableModule } from '@angular/material/table';
 import { GoogleComponent } from './google/google.component';
+import { ApplicationConfigService } from './core/config/application-config.service';
+import { NgbDatepickerConfig } from '@ng-bootstrap/ng-bootstrap';
+import { registerLocaleData } from '@angular/common';
 
 
 @NgModule({
@@ -24,4 +28,8 @@ import { GoogleComponent } from './google/google.component';
   providers: [SessionStorageService, LocalStorageService],
   bootstrap: [AppComponent]
 })
-export class AppModule {}
+export class AppModule { //constructor(applicationConfigService: ApplicationConfigService, dpConfig:NgbDatepickerConfig) {
+ // applicationConfigService.setEndpointPrefix("");
+  //registerLocaleData(locale);
+//}
+}
