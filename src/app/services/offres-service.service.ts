@@ -37,5 +37,8 @@ export class OffresServiceService {
  
     return this.http.get(`${this.baseUrl}/offrs/${text}` );
   }
- 
+ getOffresAll():Observable<any>{
+  return this.http.get(`${this.baseUrl}/offre`);
+
+ }
 }
