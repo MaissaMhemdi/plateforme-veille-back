@@ -17,15 +17,20 @@ import { ApplicationConfigService } from './core/config/application-config.servi
 import { NgbDatepickerConfig } from '@ng-bootstrap/ng-bootstrap';
 import { registerLocaleData } from '@angular/common';
 
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { AuthInterceptor } from './core/interceptor/auth.interceptor';
 
 @NgModule({
   declarations: [AppComponent],
   imports: [BrowserModule, AppRoutingModule, BrowserAnimationsModule, SharedModule, NgxSkeletonLoaderModule,
-  MatPaginatorModule,MatChipsModule,MatTableModule,
-  NgxWebstorageModule.forRoot({ prefix: 'jhi', separator: '-', caseSensitive: true }),
+  MatPaginatorModule,MatChipsModule,MatTableModule,HttpClientModule,
 
   ],
-  providers: [SessionStorageService, LocalStorageService],
+  providers: [SessionStorageService, LocalStorageService,  {
+    provide: HTTP_INTERCEPTORS,
+    useClass: AuthInterceptor,
+    multi: true
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule { //constructor(applicationConfigService: ApplicationConfigService, dpConfig:NgbDatepickerConfig) {

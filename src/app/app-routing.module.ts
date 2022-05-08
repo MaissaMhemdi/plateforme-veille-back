@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { OffreDetailsComponent } from './admin/offre-details/offre-details.component';
+import { AuthGuard } from './auth/auth.guard';
 import { Authority } from './config/authority.constants';
 import { UserRouteAccessService } from './core/auth/user-route-access.service';
 import { GoogleComponent } from './google/google.component';
@@ -65,6 +66,10 @@ const routes: Routes = [
   },
   {
     path: 'dashadmin',
+    data: {
+      authorities: [Authority.ADMIN],
+    },
+    canActivate:[AuthGuard],
     loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule)  },
     { path: 'detail/:id',
     component: OffreDetailsComponent },

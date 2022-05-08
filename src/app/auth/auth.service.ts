@@ -26,11 +26,14 @@ type User ={
 };
 @Injectable({ providedIn: 'root' })
 export class AuthService {
+  isLoggedIn = false;
+redirectUrl: string;
   constructor(private accountService: AccountService, private authServerProvider: AuthServerProvider) {}
 
-  login(credentials: Login): Observable<JwtToken> {
-     //return this.authServerProvider.login(credentials).pipe(mergeMap(() => this.accountService.identity(true)));
-    return this.authServerProvider.login(credentials);
+  login(credentials: Login): Observable<Account> {
+     return this.authServerProvider.login(credentials).pipe(mergeMap(() => this.accountService.identity(true)));
+     this.isLoggedIn=true;
+    //return this.authServerProvider.login(credentials);
    
   }
   

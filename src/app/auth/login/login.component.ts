@@ -32,6 +32,7 @@ export class LoginComponent implements OnInit {
     private authService: AuthService,
     private router: Router,
     private fb: FormBuilder,
+    private acount:AccountService,
     private authServerProvider:AuthServerProvider,
     private localStorageService: LocalStorageService,
     @Inject(PLATFORM_ID) private platformId: Object) { }
@@ -72,21 +73,16 @@ export class LoginComponent implements OnInit {
         password: this.loginForm.get('password')!.value,
         rememberMe: this.loginForm.get('rememberMe')!.value,
       })
-      .subscribe((res) => {
-        if(res){
-          // let account = new Account(res.user.activated, res.user.authorities, res.user.email, res.user.firstName, res.user.lastName,
-          //   res.user.login, null );
-
-          // this.localStorageService.store('authorities', this.accountService.authenticate(account));
-
-          // console.log("auuuth " + this.accountService.authenticate(account));
-         
-         console.log("Token:" + this.authServerProvider.getToken());
+      .subscribe( {
+        next: () => {
           this.authenticationError = false;
-          this.router.navigate(['/dashadmin']);
-        } else {
-          this.authenticationError = true
-        }
+          if (!this.router.getCurrentNavigation()) {
+            // There were no routing during login (eg from navigationToStoredUrl)
+            this.router.navigate(['/dashadmin']);
+          }
+        },
+        error: () => (this.authenticationError = true),
       });
+         
   }
 }

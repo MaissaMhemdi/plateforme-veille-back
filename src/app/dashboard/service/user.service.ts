@@ -6,10 +6,15 @@ import { createRequestOption } from 'src/app/core/request/request-util';
 import { Pagination } from 'src/app/core/request/request.model';
 import { IUser } from '../dashboard-order/user-management.model';
 
+
+
 @Injectable({
   providedIn: 'root'
 })
+
 export class UserService {
+  private baseUrl = 'http://localhost:8080/api/admin/users';
+
   private resourceUrl = this.applicationConfigService.getEndpointFor('api/admin/users');
 
   constructor(private http: HttpClient, private applicationConfigService: ApplicationConfigService) {}
@@ -19,7 +24,7 @@ export class UserService {
   }
 
   update(user: IUser): Observable<IUser> {
-    return this.http.put<IUser>(this.resourceUrl, user);
+    return this.http.put<IUser>(this.baseUrl, user);
   }
 
   find(login: string): Observable<IUser> {
@@ -32,9 +37,12 @@ export class UserService {
   }
 
   delete(login: string): Observable<{}> {
-    return this.http.delete(`${this.resourceUrl}/${login}`);
+    return this.http.delete(`${this.baseUrl}/${login}`);
   }
 
+  usersall(size, page): Observable<any> {
+    return this.http.get(`${this.baseUrl}?size=${size}&page=${page}`);
+  }
   authorities(): Observable<string[]> {
     return this.http.get<string[]>(this.applicationConfigService.getEndpointFor('api/authorities'));
   }

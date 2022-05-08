@@ -24,7 +24,7 @@ export class AccountService {
     private http: HttpClient,
     private stateStorageService: StateStorageService,
     private router: Router,
-    private applicationConfigService: ApplicationConfigService
+    private applicationConfigService: ApplicationConfigService,
   ) {}
 
   save(account: Account): Observable<{}> {
@@ -62,6 +62,7 @@ export class AccountService {
 
   getAuthorities(): Observable<string[]> {
     return this.http.get<string[]>(this.applicationConfigService.getEndpointFor(baseUrl + API_URL + "/authorities"));
+    
   }
 
 

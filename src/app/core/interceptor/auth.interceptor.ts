@@ -1,33 +1,55 @@
 import { Injectable } from '@angular/core';
-import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent, HttpErrorResponse, HttpResponse } from '@angular/common/http';
+import { Observable, throwError } from 'rxjs';
 import { LocalStorageService, SessionStorageService } from 'ngx-webstorage';
 
 import { ApplicationConfigService } from '../config/application-config.service';
+import { catchError, map } from 'rxjs/operators';
+import { Router } from '@angular/router';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
   constructor(
-    private localStorageService: LocalStorageService,
-    private sessionStorageService: SessionStorageService,
-    private applicationConfigService: ApplicationConfigService
+ 
+    private applicationConfigService: ApplicationConfigService,
+    private router: Router
   ) {}
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    const serverApiUrl = this.applicationConfigService.getEndpointFor('');
-    if (!request.url || (request.url.startsWith('http') && !(serverApiUrl && request.url.startsWith(serverApiUrl)))) {
-      return next.handle(request);
-    }
-
-    const token: string | null =
-      this.localStorageService.retrieve('authenticationToken') ?? this.sessionStorageService.retrieve('authenticationToken');
+  
+    const token = localStorage.getItem('access_token');
     if (token) {
       request = request.clone({
         setHeaders: {
-          Authorization: `Bearer ${token}`,
-        },
+          'Authorization': 'Bearer ' + token
+        }
       });
     }
-    return next.handle(request);
-  }
-}
+    if (!request.headers.has('Content-Type')) {
+      request = request.clone({
+        setHeaders: {
+          'content-type': 'application/json'
+        }
+      });
+    }
+    request = request.clone({
+      headers: request.headers.set('Accept', 'application/json')
+    });
+    return next.handle(request).pipe(
+      map((event: HttpEvent<any>) => {
+        if (event instanceof HttpResponse) {
+          console.log('event--->>>', event);
+        }
+        return event;
+      }),
+      catchError((error: HttpErrorResponse) => {
+        console.log(error);
+        if (error.status === 401) {
+          this.router.navigate(['login']);
+        }
+        if (error.status === 400) {
+          alert(error.error);
+        }
+        return throwError(error);
+      }));
+}}

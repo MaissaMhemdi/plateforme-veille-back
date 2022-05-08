@@ -48,45 +48,49 @@ export class AuthServerProvider {
     const tokenInsessionStorage= sessionStorage.getItem('access_token');
 
     return tokenInLocalStorage ?? tokenInsessionStorage ?? '';
+  }  
+  getUser(): string {
+    const userInLocalStorage= localStorage.getItem('user_connect');
+    const userInsessionStorage= sessionStorage.getItem('user_connect');
+    return userInLocalStorage ?? userInsessionStorage ?? '';
+
   }
-  login(credentials: Login): Observable<JwtToken> {
-    // return this.http
-    //   .post<JwtToken>(baseUrl + API_URL + "/authenticate", credentials)
-    //   .pipe(map(response => this.authenticateSuccess(response, credentials.rememberMe)));
-     return this.http
-      .post<JwtToken>(baseUrl + API_URL + "/authenticate", credentials)
-      .pipe(
-        map((res: JwtToken) => {
-          const access_token = res?.id_token;
-          var user_connect =res?.user;
-          localStorage.setItem(this.ACCESS_TOKEN, access_token)
-          sessionStorage.setItem(this.ACCESS_TOKEN, access_token)
-          localStorage.setItem(this.USER_CONNECT, JSON.stringify(user_connect))
-          sessionStorage.setItem(this.USER_CONNECT, JSON.stringify(user_connect))
-          return res
-        }))
+  login(credentials: Login): Observable<void> {
+   return this.http
+     .post<JwtToken>(baseUrl + API_URL + "/authenticate", credentials)
+    .pipe(map(response => this.authenticateSuccess(response, credentials.rememberMe)));
+   
 
   }
 
   logout(): Observable<void> {
     return new Observable(observer => {
-      this.localStorageService.clear('authenticationToken');
-      this.sessionStorageService.clear('authenticationToken');
+      this.localStorageService.clear('access_token');
+      this.sessionStorageService.clear('access_token');
       observer.complete();
     });
   }
 
+  isUserLoggedIn() {
+    let user = localStorage.getItem("user_connect");
+    console.log(!(user === null));
+    return !(user === null);
+  }
  authenticateSuccess(response: JwtToken, rememberMe: boolean): void {
     const jwt = response.id_token;
+    const username = response.user.firstName;
+
     if (rememberMe) {
-      //this.localStorageService.store('authenticationToken', jwt);
-      //this.sessionStorageService.clear('authenticationToken');
-      //this.localStorageService.clear('authenticationUser');
+      localStorage.setItem(this.ACCESS_TOKEN, jwt)
+      localStorage.setItem(this.USER_CONNECT, username)
+
+      sessionStorage.clear();
 
     } else {
-      //this.sessionStorageService.store('authenticationToken', jwt);
-      //this.localStorageService.clear('authenticationToken');
-      //this.localStorageService.clear('authenticationUser');
+      sessionStorage.setItem('access_token', jwt);
+      sessionStorage.setItem('user_connect', username);
+
+      localStorage.clear();
     }
   }
 }
