@@ -19,9 +19,9 @@ export class UserManagementComponent implements OnInit {
   currentAccount: Account | null = null;
   users: User[] | null = null;
   isLoading = false;
-  totalItems = 0;
-  itemsPerPage = ITEMS_PER_PAGE;
-  page!: number;
+  pageSize : number = 10;
+  pageElement : number =0;
+  totalElement : number;
   predicate!: string;
   ascending!: boolean;
 
@@ -35,7 +35,7 @@ export class UserManagementComponent implements OnInit {
 
   ngOnInit(): void {
     this.accountService.identity().subscribe(account => (this.currentAccount = account));
-    this.handleNavigation();
+    this.loadAll();
   }
 
   setActive(user: User, isActivated: boolean): void {
@@ -60,51 +60,33 @@ export class UserManagementComponent implements OnInit {
   loadAll(): void {
     this.isLoading = true;
     this.userService
-      .query({
-        page: this.page - 1,
-        size: this.itemsPerPage,
-        sort: this.sort(),
-      })
-      .subscribe({
-        next: (res: HttpResponse<User[]>) => {
-          this.isLoading = false;
-          this.onSuccess(res.body, res.headers);
-        },
-        error: () => (this.isLoading = false),
-      });
-  }
-
-  transition(): void {
-    this.router.navigate(['./'], {
-      relativeTo: this.activatedRoute.parent,
-      queryParams: {
-        page: this.page,
-        sort: `${this.predicate},${this.ascending ? ASC : DESC}`,
-      },
-    });
-  }
-
-  private handleNavigation(): void {
-    combineLatest([this.activatedRoute.data, this.activatedRoute.queryParamMap]).subscribe(([data, params]) => {
-      const page = params.get('page');
-      this.page = +(page ?? 1);
-      const sort = (params.get(SORT) ?? data['defaultSort']).split(',');
-      this.predicate = sort[0];
-      this.ascending = sort[1] === ASC;
-      this.loadAll();
-    });
-  }
-
-  private sort(): string[] {
-    const result = [`${this.predicate},${this.ascending ? ASC : DESC}`];
-    if (this.predicate !== 'id') {
-      result.push('id');
+      .usersall(this.pageSize,this.pageElement)
+      .subscribe(data => {
+        this.users = data['adminuser'];
+        this.totalElement = data.totalElements;
+        console.log("yyyyyyyyyyyyyyyyyyyy",this.users)
     }
-    return result;
+    , error => {
+        console.log(error.error.message);
+    }
+    );
   }
 
-  private onSuccess(users: User[] | null, headers: HttpHeaders): void {
-    this.totalItems = Number(headers.get('X-Total-Count'));
-    this.users = users;
+  nextPage(event) {
+    this.pageSize=event.pageSize
+    this.pageElement=event.pageIndex.toString();
+   
+     this.loadAll();
+     console.log("hhhhhhhhhh",this.loadAll())
+   }
+   deleteuser(login: string) {
+    this.userService.delete(login)
+      .subscribe(
+        data => {
+          console.log(data);
+          window.location.reload();
+
+        },
+        error => console.log(error));
   }
 }
