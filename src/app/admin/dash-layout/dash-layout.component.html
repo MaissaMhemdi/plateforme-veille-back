@@ -1,19 +1,71 @@
 <div>
     <mat-sidenav-container class="kl-sidenav-container">
         <mat-sidenav #sidenav [opened]="false" [mode]="'over'" [fixedInViewport]="isLessThenLargeDevice">
-            <div class="rounded-md border overflow-hidden w-72">
+            <div style="top:-152px; bottom: 0px; transform: none; visibility: visible;margin-left: 0px;width: 257px;" >
+                <div class="area"></div><nav class="main-menu">
+                    <ul>
+                        <li>
+                            <a routerLink="/dashadmin">
+                                <i class="fa fa-home fa-2x"></i>
+                                <span class="nav-text">
+                                    Dashboard
+                                </span>
+                            </a>
+                          
+                        </li>
+                       
+                        <li class="has-subnav">
+                            <a routerLink="/dashadmin/offreNotarchived">
+                               <i class="fa fa-list fa-2x"></i>
+                                <span class="nav-text">
+                                    List Des Offres
+                                </span>
+                            </a>
+                            
+                        </li>
+                        <li class="has-subnav">
+                            <a routerLink="/dashadmin/offresarchived">
+                               <i class="fa fa-folder-open fa-2x"></i>
+                                <span class="nav-text">
+                                    List Des Offres Archives
+                                </span>
+                            </a>
+                           
+                        </li>
+                        <li class="has-subnav" *ngIf="displayAdmin">
+                            <a routerLink="/dashadmin/user-management">
+                                <i class="fa fa-laptop fa-2x"></i>
+                                <span class="nav-text">
+                                    Gestion Des Utilisateurs
+                                </span>
+                            </a>
+                            
+                        </li>
+                       
+                        <li>
+                           <a routerLink="/dashadmin/mesoffres">
+                               <i class="fa fa-table fa-2x"></i>
+                                <span class="nav-text">
+                                    Mes Offres
+                                </span>
+                            </a>
 
-                <mat-nav-list class="_sidenav">
-                    <a mat-list-item routerLink="/dashadmin" [routerLinkActiveOptions]="{ exact: true }" routerLinkActive="bg-gray-200" class="font-semibold text-gray-500 hover:text-primary">
-                        <mat-icon class="mr-2">dashboard</mat-icon> Dashboard</a>
-                    <a mat-list-item routerLink="/dashadmin/offresNot" routerLinkActive="bg-gray-200" class="font-semibold text-gray-500 hover:text-primary">
-                        <mat-icon class="mr-2">list</mat-icon> Liste des Offres</a>
-                    <a mat-list-item routerLink="/dashadmin/offresarchived" routerLinkActive="bg-gray-200" class="font-semibold text-gray-500 hover:text-primary">
-                        <mat-icon class="mr-2">archive</mat-icon> Liste des Offres Archives</a>
-                    <a mat-list-item routerLink="/dashadmin/user-management" routerLinkActive="bg-gray-200" class="font-semibold text-gray-500 hover:text-primary">
-                        <mat-icon class="mr-2">article</mat-icon> Utilisateurs</a>
+                        </li>
 
-                </mat-nav-list>
+                       
+                    </ul>
+        
+                    <ul class="logout">
+                        <li>
+                           <a href="#">
+                                 <i class="fa fa-power-off fa-2x"></i>
+                                <span class="nav-text">
+                                    Logout
+                                </span>
+                            </a>
+                        </li>  
+                    </ul>
+                </nav>
             </div>
         </mat-sidenav>
         <mat-sidenav-content>
@@ -27,10 +79,10 @@
             <mat-icon>menu</mat-icon>
           </button>
                         <div class="items-center flex ml-auto">
-                            <button mat-icon-button routerLink="/dashadmin/profile">
+                            <button mat-icon-button>
               <mat-icon>notifications</mat-icon>
             </button>
-                            <button mat-icon-button>
+                            <button mat-icon-button  routerLink="/dashadmin/profile">
               <mat-icon>account_circle</mat-icon>
             </button>
                             <button mat-icon-button (click)="onLogout()">
@@ -40,23 +92,75 @@
                 </div>
             </header>
 
-            <div>
-                <div class="container">
+           
                     <div class="grid grid-cols-12 gap-8">
                         <div class="col-span-3 hidden xl:block">
-                            <div class="py-5 min-h-screen">
+                            <div >
                                 <div class="rounded-md border overflow-hidden h-full">
-                                    <mat-nav-list class="_sidenav">
-                                        <a mat-list-item routerLink="/dashadmin" [routerLinkActiveOptions]="{ exact: true }" routerLinkActive="bg-gray-200" class="font-semibold text-gray-500 hover:text-primary">
-                                            <mat-icon class="mr-2">dashboard</mat-icon> Dashboard</a>
-                                        <a mat-list-item routerLink="/dashadmin/offresNot" routerLinkActive="bg-gray-200" class="font-semibold text-gray-500 hover:text-primary">
-                                            <mat-icon class="mr-2">list</mat-icon> Liste des Offres</a>
-                                        <a mat-list-item routerLink="/dashadmin/offresarchived" routerLinkActive="bg-gray-200" class="font-semibold text-gray-500 hover:text-primary">
-                                            <mat-icon class="mr-2">archive</mat-icon> Liste des Offres Archives</a>
-                                        <a mat-list-item routerLink="/dashadmin/user-management/us" routerLinkActive="bg-gray-200" class="font-semibold text-gray-500 hover:text-primary">
-                                            <mat-icon class="mr-2">article</mat-icon> Utilisateurs</a>
+                                    <div class="area"></div><nav class="main-menu">
+                                        <ul>
+                                            <li>
+                                                <a routerLink="/dashadmin">
+                                                    <i class="fa fa-home fa-2x"></i>
+                                                    <span class="nav-text">
+                                                        Dashboard
+                                                    </span>
+                                                </a>
+                                              
+                                            </li>
+                                           
+                                            <li class="has-subnav">
+                                                <a routerLink="/dashadmin/offreNotarchived">
+                                                   <i class="fa fa-list fa-2x"></i>
+                                                    <span class="nav-text">
+                                                        List Des Offres
+                                                    </span>
+                                                </a>
+                                                
+                                            </li>
+                                            <li class="has-subnav">
+                                                <a routerLink="/dashadmin/offresarchived">
+                                                   <i class="fa fa-folder-open fa-2x"></i>
+                                                    <span class="nav-text">
+                                                        List Des Offres Archives
+                                                    </span>
+                                                </a>
+                                               
+                                            </li>
+                                            <li class="has-subnav" *ngIf="displayAdmin">
+                                                <a routerLink="/dashadmin/user-management">
+                                                    <i class="fa fa-laptop fa-2x"></i>
+                                                    <span class="nav-text">
+                                                        Gestion Des Utilisateurs
+                                                    </span>
+                                                </a>
+                                                
+                                            </li>
+                                           
+                                            <li>
+                                               <a routerLink="/dashadmin/mesoffres">
+                                                   <i class="fa fa-table fa-2x"></i>
+                                                    <span class="nav-text">
+                                                        Mes Offres
+                                                    </span>
+                                                </a>
 
-                                    </mat-nav-list>
+                                            </li>
+
+                                           
+                                        </ul>
+                            
+                                        <ul class="logout">
+                                            <li>
+                                               <a href="#">
+                                                     <i class="fa fa-power-off fa-2x"></i>
+                                                    <span class="nav-text">
+                                                        Logout
+                                                    </span>
+                                                </a>
+                                            </li>  
+                                        </ul>
+                                    </nav>
                                 </div>
                             </div>
                         </div>
@@ -64,8 +168,7 @@
                             <router-outlet></router-outlet>
                         </div>
                     </div>
-                </div>
-            </div>
+        
         </mat-sidenav-content>
     </mat-sidenav-container>
 </div>

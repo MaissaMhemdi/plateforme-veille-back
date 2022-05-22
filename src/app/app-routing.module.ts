@@ -65,6 +65,10 @@ const routes: Routes = [
     loadChildren: () => import('./offres/offres.module').then(m => m.OffresModule)
   },
   {
+    path: 'account',
+    loadChildren: () => import('./account/account.module').then(m => m.AccountModule),
+  },
+  {
     path: 'dashadmin',
     data: {
       authorities: [Authority.ADMIN],

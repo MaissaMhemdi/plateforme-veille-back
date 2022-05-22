@@ -1,0 +1,68 @@
+<div>
+	<!-- User Start -->
+	<div class="flex flex-wrap">
+		<div class="flex space-x-3 bg-primary rounded-md px-5 py-3 w-full sm:w-1/2">
+			<div class="w-16 h-16 rounded-full overflow-hidden shadow-md">
+				<img src="assets/images/user-128x128.jpg" alt="" class="w-full h-full object-cover">
+			</div>
+			<div class="text-white">
+				<h5>{{currentUser.firstName}}</h5>
+				<p class="leading-normal text-white">
+					<span class="font-medium">Email</span>: {{currentUser.email}}</p>
+			</div>
+		</div>
+
+	</div>
+	<!-- User End -->
+	<!-- User Meta Start -->
+	<div class="border bg-white mt-8 rounded-md">
+		<div class="flex p-4 bg-gray-200">
+			<h6 class="text-normal">Information</h6>
+			<button class="text-blue-400 hover:text-accent ml-auto flex items-center">
+				<mat-icon class="_edit_icon mr-2">edit</mat-icon>
+				Edit</button>
+		</div>
+		<div class="flex flex-wrap p-4">
+			<div class="w-full sm:w-1/2">
+				<div class="ll-dataset">
+					<div class="ll-dataset__label">
+						Email:
+					</div>
+					<div class="ll-dataset__value">
+				{{currentUser.email}}
+					</div>
+				</div>
+				<div class="ll-dataset mt-4">
+					<div class="ll-dataset__label">
+						Login:
+					</div>
+					<div class="ll-dataset__value">
+					{{currentUser.login}}			
+				 		</div>
+				</div>
+			</div>
+			<div class="w-full sm:w-1/2 mt-4 sm:mt-0">
+				<div class="ll-dataset">
+					<div class="ll-dataset__label">
+						Username:
+					</div>
+					<div class="ll-dataset__value">
+						{{currentUser.firstName}}{{currentUser.lastName}}
+					</div>
+				</div>
+				<div class="ll-dataset mt-4">
+					<div class="ll-dataset__label">
+						 Role:
+					</div>
+					<div class="ll-dataset__value">
+						<ul>
+							<li *ngFor="let role of authoritie">
+								{{ role.name }}
+							</li>
+						</ul>					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+</div>

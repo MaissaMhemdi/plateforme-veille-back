@@ -1,9 +1,6 @@
 <div class="login__page" [style.background-image]="'url(assets/images/im.jpg)'">
     <div class="login__row min-h-screen">
-        <!-- <div class="login__hero flex flex-col justify-center items-center py-10 px-4 sm:px-8 xl:px-20 text-white">
-      <a [routerLink]="['']" class="w-48 inline-block"><img src="assets/images/tritux.jpg" alt="Lieblings" /></a>
-      <h2 class="text-center mt-6">Welcome back!</h2>
-    </div> -->
+    
         <div class="login__content p-4 sm:p-8 flex flex-col justify-center">
             <div class="login w-full max-w-xl rounded-md mx-auto border p-4 sm:p-8 xl:p-20">
                 <div class="alert" *ngIf="authenticationError">
@@ -26,6 +23,8 @@
                     <div class="flex items-center">
                         <input type="checkbox" class="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border rounded" formControlName="rememberMe" />
                         <label for="remember_me" class="ml-2 block text-sm text-gray-900"> Se souvenir de moi </label>
+
+
                     </div>
                     <div class="flex w-full mt-6">
                         <button class="w-full bg-gray-800 hover:bg-grey-900 text-white text-sm py-2 px-4 font-semibold rounded focus:outline-none focus:shadow-outline h-10" type="submit">

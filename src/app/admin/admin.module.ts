@@ -13,6 +13,8 @@ import { NgParticlesModule } from 'ng-particles';
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 import { MatIconModule } from '@angular/material/icon';
 import { OffreDetailsComponent } from './offre-details/offre-details.component';
+import { ProfileComponent } from './profile/profile.component';
+import { MesOffresComponent } from './mes-offres/mes-offres.component';
 
 
 @NgModule({
@@ -20,7 +22,9 @@ import { OffreDetailsComponent } from './offre-details/offre-details.component';
     OffresArchivesComponent,
     DashboardComponent,
     DashLayoutComponent,
-    OffreDetailsComponent
+    OffreDetailsComponent,
+    ProfileComponent,
+    MesOffresComponent
   ],
   imports: [
     CommonModule,

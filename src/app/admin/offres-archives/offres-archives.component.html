@@ -1,4 +1,4 @@
-<div>
+<div class="container">
     <div class="filter flex items-center mb-5">
         <h5>Archives Offres</h5>
         <div class="flex items-center ml-auto">
@@ -9,20 +9,19 @@
     <div>
         <div *ngIf="view === 'list'" class="table-inside">
             <div class="flex flex-col border ltLg:responsive">
-                <div class="flex items-center p-4 border-b hover:bg-blue-100">
-                    <div class="w-2/12 font-medium">Date Publie</div>
-                    <div class="w-2/12 font-medium text-center">Pays</div>
+                <div style="background-color: rgb(161 196 116);" class="flex items-center p-4 border-b hover:bg-blue-100">
+                    <div  class="w-2/12 font-medium">Date Publie</div>
+                  
                     <div class="w-6/12 font-medium">
                         <div class="pl-16 ml-3">Offres</div>
                     </div>
-                    <div class="w-2/12 font-medium">Categorie</div>
-                    <div class="w-2/12 font-medium">Domaine</div>
-                    <div class="w-1/12 font-medium">Date Exprime</div>
+                  
+                   
                     <div class="w-1/12"></div>
                 </div>
                 <div class="flex items-center p-4 border-b hover:bg-blue-100" *ngFor="let offre of offres| slice: 0:9">
                     <div class="w-2/12">{{offre.datePub}}</div>
-                    <div class="w-2/12">{{offre.pays}}</div>
+                  
 
 
                     <div class="w-6/12">
@@ -33,48 +32,27 @@
                             <h6 class="flex-auto">{{ offre.title }}</h6>
                         </a>
                     </div>
-                    <div class="w-2/12">{{offre.categories}}</div>
 
 
-                    <div class="w-2/12">
-                        <div class="flex items-center">
-                            <!--<mat-icon class="mr-1 text-lg leading-4 h-4 w-4 text-yellow-500">star_rate</mat-icon>-->
-                            {{offre.domaine}}
-                        </div>
-                    </div>
-                    <div class="w-1/12">
-                        <div class="flex items-center">
-                            <mat-icon class="mr-1 text-lg leading-4 h-4 w-4">date</mat-icon>
-                            {{offre.dateExp}}
-                        </div>
-                    </div>
-                    <div class="w-1/12 text-right">
-                        <button class="action_icon__btn" mat-icon-button [matMenuTriggerFor]="menu">
-              <mat-icon>more_vert</mat-icon>
-            </button>
-                        <mat-menu #menu="matMenu" xposition="before">
-                            <button mat-menu-item>
+                    <div class="w-1/12"style="background-color: rgb(0 0 0 / 54%);
+                    border-radius: 10px;" >
+                        <div class="flex items-center"> 
                 <mat-icon>dialpad</mat-icon>
-                <span>Details</span>
-              </button>
-                            <button mat-menu-item>
-                <mat-icon>delete</mat-icon>
-                <span><button type="button" (click)="deleteOffres(offre.id)">Delete</button></span>
-            </button>
-                        </mat-menu>
-                    </div>
-                </div>
-            </div>
+                <span><button  type="button" (click)="detailsOffre(offre.id)">Details</button></span>
+             </div></div>
+             
+           </div></div>
         </div>
         <div class="grid grid-cols-12 gap-4" *ngIf="view === 'grid'">
             <div class="col-span-4" *ngFor="let offre of offres | slice: 0:9">
                 <mat-card>
-                    <img class="m-0 mb-4" mat-card-image src="assets\images\offree.jpg" alt="Photo of a Shiba Inu" />
+                    <img class="m-0 mb-4" mat-card-image src="assets\images\app.jpg" alt="Photo of a Shiba Inu" />
                     <mat-card-header class="mx-0">
                         <h3 class="text-[15px] leading-[23px]">{{ offre.title }}</h3>
                     </mat-card-header>
                     <mat-card-actions>
-                        <a mat-stroked-button class="px-5">View</a>
+                        <a 
+                        mat-stroked-button class="px-5">View</a>
                         <button mat-button>SHARE</button>
                     </mat-card-actions>
                 </mat-card>

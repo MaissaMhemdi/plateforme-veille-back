@@ -14,6 +14,7 @@ import { IUser } from '../dashboard-order/user-management.model';
 
 export class UserService {
   private baseUrl = 'http://localhost:8080/api/admin/users';
+  private url='http://localhost:8080/api';
 
   private resourceUrl = this.applicationConfigService.getEndpointFor('api/admin/users');
 
@@ -26,9 +27,12 @@ export class UserService {
   update(user: IUser): Observable<IUser> {
     return this.http.put<IUser>(this.baseUrl, user);
   }
+  activated(user: IUser): Observable<IUser> {
+    return this.http.put<IUser>(this.baseUrl +"/activated", user);
+  }
 
   find(login: string): Observable<IUser> {
-    return this.http.get<IUser>(`${this.resourceUrl}/${login}`);
+    return this.http.get<IUser>(`${this.baseUrl}/${login}`);
   }
 
   query(req?: Pagination): Observable<HttpResponse<IUser[]>> {
@@ -44,6 +48,6 @@ export class UserService {
     return this.http.get(`${this.baseUrl}?size=${size}&page=${page}`);
   }
   authorities(): Observable<string[]> {
-    return this.http.get<string[]>(this.applicationConfigService.getEndpointFor('api/authorities'));
+    return this.http.get<string[]>(this.applicationConfigService.getEndpointFor(`${this.url}/authorities`));
   }
 }

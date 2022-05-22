@@ -1,0 +1,80 @@
+
+.panel-primary
+{
+    margin-left: 230px;
+    width: 110%;
+}
+
+
+.btn-success {
+    color: #fff;
+    background-color: #28a745;
+}
+.h3, h3 {
+    font-size: 1.75rem;
+    margin-left: 270px;
+}
+.login {
+  background-color: #ffffff;
+  &__page {
+    background-attachment: scroll;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    &:before {
+      content: '';
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      right: 0;
+      left: 0;
+      background-color: rgba(0, 0, 0, 0.4);
+    }
+  }
+  &__row {
+    position: relative;
+    z-index: 2;
+  }
+}
+@media (min-width: 768px) {
+  .login {
+    &__row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+
+    }
+  }
+}
+
+
+.error {
+  font-size: 70%;
+  color: red;
+}
+
+.alert {
+  font-size: 100%;
+  color: red;
+}
+[type='text'], [type='email'], [type='url'], [type='password'], [type='number'], [type='date'], [type='datetime-local'], [type='month'], [type='search'], [type='tel'], [type='time'], [type='week'], [multiple], textarea, select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background-color: #fff;
+  border-color: #6b7280;
+  border-width: 2px;
+  border-radius: 9px;
+  padding-top: 0.5rem;
+  padding-right: 1.75rem;
+  padding-bottom: 0.5rem;
+  padding-left: 1.75rem;
+  font-size: 1rem;
+  line-height: 0.5rem;
+}
+.text-white {
+  --tw-text-opacity: 1;
+  color: rgba(255, 255, 255, var(--tw-text-opacity));
+  width: 45%;
+  margin: 3px;
+  border-radius: 39px;
+}

@@ -36,10 +36,11 @@ export class UserManagementComponent implements OnInit {
   ngOnInit(): void {
     this.accountService.identity().subscribe(account => (this.currentAccount = account));
     this.loadAll();
+
   }
 
   setActive(user: User, isActivated: boolean): void {
-    this.userService.update({ ...user, activated: isActivated }).subscribe(() => this.loadAll());
+    this.userService.activated({ ...user, activated: isActivated }).subscribe(() => this.loadAll());
   }
 
   trackIdentity(index: number, item: User): number {
@@ -58,7 +59,7 @@ export class UserManagementComponent implements OnInit {
   //}
 
   loadAll(): void {
-    this.isLoading = true;
+    this.isLoading == true;
     this.userService
       .usersall(this.pageSize,this.pageElement)
       .subscribe(data => {
@@ -89,4 +90,5 @@ export class UserManagementComponent implements OnInit {
         },
         error => console.log(error));
   }
+
 }

@@ -15,6 +15,10 @@ export class DashLayoutComponent implements OnInit {
 isauth =false;
 isLoadingResults = true;
   data: string[];
+  displaymenu = false;
+  displayAdmin = false;
+  displayuser = false;
+  currentrole: any;
 
   constructor(private breakpointObserver: BreakpointObserver, private router: Router, private accountService: AccountService,private authServerProvider:AuthServerProvider) {}
 
@@ -23,6 +27,7 @@ isLoadingResults = true;
       this.breakpointObserver.observe(['(max-width: 1199px)']).subscribe(({ matches }) => {
       this.isLessThenLargeDevice = matches;
     });
+    this.MenuDisplay();
   
   }
   onLogout(): void {
@@ -38,5 +43,12 @@ isLoadingResults = true;
         console.log(err);
         this.isLoadingResults = false;
       });
+}
+MenuDisplay() {
+  if (this.authServerProvider.getToken() != '') {
+    this.currentrole = this.authServerProvider.GetRolebyToken(this.authServerProvider.getToken());
+    this.displayAdmin = this.currentrole == 'admin';
+    this.displayuser = (this.currentrole == 'admin' || this.currentrole == 'user')
+  }
 }
 }

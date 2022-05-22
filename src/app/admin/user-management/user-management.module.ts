@@ -12,6 +12,8 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { UserManagementComponent } from './list/user-management.component';
 
 import { userManagementRoute } from './user-management.route';
+import { UpdateComponent } from './update/update.component';
+import { AjoutComponent } from './ajout/ajout.component';
 
 @NgModule({
   imports: [ RouterModule.forChild(userManagementRoute), SharedModule,
@@ -24,6 +26,8 @@ import { userManagementRoute } from './user-management.route';
     MatIconModule],
   declarations: [
     UserManagementComponent,
+    UpdateComponent,
+    AjoutComponent,
   
   ],
  // entryComponents: [UserManagementDeleteDialogComponent],

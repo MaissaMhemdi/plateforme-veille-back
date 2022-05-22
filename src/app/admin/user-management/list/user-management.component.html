@@ -1,23 +1,38 @@
 
+<head>
+    <style>
+       .btn1{
+  -webkit-appearance: button;
+  background-color: darkgreen;
+  border-radius: 10px;
+}
+.mb-3{
+    font-size: 28px;
+    font-family: inherit;
+}
 
-<div>
+    </style>
+</head>
+<div >
     <h5 class="mb-3 font-medium">Utilisateurs</h5>
-    <div class="d-flex justify-content-end">
-        <button class="btn btn-info mr-2" (click)="loadAll()" [disabled]="isLoading">
+    <div >
+        <button class="btn1" type="button" (click)="loadAll()" [disabled]="isLoading">
             <mat-icon spin="isLoading">cached</mat-icon>
              <span >Actualiser la liste</span>
           </button>
-        <button class="btn btn-primary jh-create-entity" [routerLink]="['./new']">
-            <mat-icon>add</mat-icon>
-            <span >Créer un nouvel utilisateur</span>
-      </button>
     </div>
 
     <div class="table-inside">
         <table class="order-table table-auto ltMd:responsive">
+            <div class="panel panel-primary">
+                <div class="card-body">
+                  <div class="pl-lg-4" >
+                    <div class="row">
+                      <div class="col-lg-10">
+                    <table class="table table-striped" >
             <thead>
                 <tr>
-                    <th scope="col" jhiSortBy="id"><span>ID</span>
+                    <th><span></span>
                        <!-- <mat-icon >sort</fa-icon>-->
                     </th>
                     <th scope="col" ><span >Login</span>
@@ -25,9 +40,9 @@
                     <th scope="col" ><span >Email</span>
                     </th>
                   
-                    <th scope="col"><span jhiTranslate="userManagement.profiles">Profiles</span></th>
+                    <th scope="col"><span >Profiles</span></th>
                     <th scope="col" >
-                        <span >Created Date</span>
+                        <span >Authoritie</span>
                     </th>
                     <th scope="col" >
                         <span>Last Modified By</span>
@@ -39,9 +54,10 @@
                 </tr>
             </thead>
             <tbody >
-                <tr *ngFor="let user of users; trackBy: trackIdentity">
-                    <td>
-                        <a [routerLink]="['./', user.login, 'view']">{{ user.id }}</a>
+                <tr *ngFor="let user of users; trackBy: trackIdentity" >
+                    <td >
+                        <img style="border-radius:12px;max-width: 68%;" src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="">
+
                     </td>
                     <td>{{ user.login }}</td>
                     <td>{{ user.email }}</td>
@@ -56,11 +72,11 @@
                   
                     <td>
                         <div *ngFor="let authority of user.authorities">
-                            <span class="badge badge-info">{{ authority }}</span>
+                            <span  style="color: cadetblue;" class="badge badge-info">{{ authority }}</span>
                         </div>
                     </td>
-                    <td>{{ user.createdDate | date: 'dd/MM/yy HH:mm' }}</td>
                     <td>{{ user.lastModifiedBy }}</td>
+                    <td>{{ user.createdDate | date: 'dd/MM/yy HH:mm' }}</td>
                     <td>{{ user.lastModifiedDate | date: 'dd/MM/yy HH:mm' }}</td>
                     <td class="text-right">
                         <div class="w-1/12 text-right">
@@ -68,7 +84,7 @@
                   <mat-icon>more_vert</mat-icon>
                 </button>
                             <mat-menu #menu="matMenu" xposition="before">
-                                <button mat-menu-item>
+                                <button mat-menu-item [routerLink]="['./', user.login, 'edit']" >
                     <mat-icon>update</mat-icon>
                     <span>modifier</span>
                   </button>

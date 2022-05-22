@@ -1,5 +1,4 @@
 export class Account {
-  id_token: string;
   constructor(
     public activated: boolean,
     public authorities: string[],

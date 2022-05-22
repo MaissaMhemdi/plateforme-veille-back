@@ -32,14 +32,14 @@ export class AccountService {
     //return this.http.post(baseUrl + API_URL + "/account", account);
   }
 
-  authenticate(identity: Account | null): string[] {
+  authenticate(identity: Account | null): void {
     this.userIdentity = identity;
     this.authenticationState.next(this.userIdentity);
     if (!identity) {
       this.accountCache$ = null;
-      return null;
+     // return null;
     }
-    return this.userIdentity.authorities;
+    //return this.userIdentity.authorities;
   }
 
   hasAnyAuthority(authorities: string[] | string): boolean {
@@ -80,8 +80,8 @@ export class AccountService {
           // if (!this.sessionStorageService.retrieve('locale')) {
           //   this.translateService.use(account.langKey);
           // }
-
-          this.navigateToStoredUrl();
+console.log("mmmmmmmm",account)       
+   this.navigateToStoredUrl();
         }),
         shareReplay()
       );
@@ -97,7 +97,7 @@ export class AccountService {
     return this.authenticationState.asObservable();
   }
 
-  private fetch(): Observable<Account>  {
+fetch(): Observable<Account>  {
   //return this.http.get<Account>(baseUrl + API_URL + "/account");
     return this.http.get<Account>(this.applicationConfigService.getEndpointFor(baseUrl + API_URL + "/account"));
   }
@@ -110,5 +110,11 @@ export class AccountService {
       this.stateStorageService.clearUrl();
       this.router.navigateByUrl(previousUrl);
     }
+  }
+  public getuser(): any {
+    return JSON.parse(localStorage.getItem('user_connect'));
+  }
+  public getauthorities(): any {
+    return JSON.parse(localStorage.getItem('authorities'));
   }
 }

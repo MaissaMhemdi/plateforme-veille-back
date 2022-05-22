@@ -1,0 +1,149 @@
+<div class="login__row min-h-screen" style="left: 269px;">
+  
+  <div class="login__content p-4 sm:p-8 flex flex-col justify-center">
+    <div class="login w-full max-w-xl rounded-md mx-auto border p-4 sm:p-8 xl:p-20" style="padding-left: 64px;
+    ">
+  
+  <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+    <h2 class="text-2xl font-bold" >Ajouter Utilisateur</h2>
+
+    
+      <div class="form-group">
+        <div class="mb-4 mt-6">
+        <label class="block text-gray-700 text-sm font-semibold mb-2" jhiTranslate="userManagement.login">Login</label>
+        <input type="text" class="form-control" name="login"  formControlName="login" />
+        </div>
+        <div *ngIf="editForm.get('login')!.invalid && (editForm.get('login')!.dirty || editForm.get('login')!.touched)">
+          <small class="error" *ngIf="editForm.get('login')?.errors?.required" jhiTranslate="entity.validation.required">
+            This field is required.
+          </small>
+
+          <small
+          class="error"
+            *ngIf="editForm.get('login')?.errors?.maxlength"
+            jhiTranslate="entity.validation.maxlength"
+            [translateValues]="{ max: 50 }"
+          >
+            This field cannot be longer than 50 characters.
+          </small>
+
+          <small
+          class="error"
+            *ngIf="editForm.get('login')?.errors?.pattern"
+            jhiTranslate="entity.validation.patternLogin"
+          >
+            This field can only contain letters, digits and e-mail addresses.
+          </small>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="mb-4 mt-6">
+
+        <label class="block text-gray-700 text-sm font-semibold mb-2" jhiTranslate="userManagement.firstName">First Name</label>
+        <input type="text" class="form-control" name="firstName" [(ngModel)]="user.firstName" 
+        formControlName="firstName" />
+         </div>
+        <div *ngIf="editForm.get('firstName')!.invalid && (editForm.get('firstName')!.dirty || editForm.get('firstName')!.touched)">
+          <small
+          class="error"
+            *ngIf="editForm.get('firstName')?.errors?.maxlength"
+            jhiTranslate="entity.validation.maxlength"
+            [translateValues]="{ max: 50 }"
+          >
+            This field cannot be longer than 50 characters.
+          </small>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="block text-gray-700 text-sm font-semibold mb-2">Last Name</label>
+        <input type="text" class="form-control" name="lastName"
+        formControlName="lastName" />
+
+        <div *ngIf="editForm.get('lastName')!.invalid && (editForm.get('lastName')!.dirty || editForm.get('lastName')!.touched)">
+          <small
+          class="error"
+            *ngIf="editForm.get('lastName')?.errors?.maxlength"
+            jhiTranslate="entity.validation.maxlength"
+            [translateValues]="{ max: 50 }"
+          >
+            This field cannot be longer than 50 characters.
+          </small>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="mb-4 mt-6">
+
+        <label class="block text-gray-700 text-sm font-semibold mb-2" jhiTranslate="user.email">Email</label>
+        <input type="email" class="form-control" name="email"    formControlName="email" />
+       </div>
+        <div *ngIf="editForm.get('email')!.invalid && (editForm.get('email')!.dirty || editForm.get('email')!.touched)">
+          <small class="error" *ngIf="editForm.get('email')?.errors?.required" jhiTranslate="entity.validation.required">
+            This field is required.
+          </small>
+
+          <small
+          class="error"
+            *ngIf="editForm.get('email')?.errors?.maxlength"
+            jhiTranslate="entity.validation.maxlength"
+            [translateValues]="{ max: 100 }"
+          >
+            This field cannot be longer than 100 characters.
+          </small>
+
+          <small
+          class="error"            
+           *ngIf="editForm.get('email')?.errors?.minlength"
+            jhiTranslate="entity.validation.minlength"
+            [translateValues]="{ min: 5 }"
+          >
+            This field is required to be at least 5 characters.
+          </small>
+
+          <small
+          class="error"
+            *ngIf="editForm.get('email')?.errors?.email"
+            jhiTranslate="global.messages.validate.email.invalid"
+          >
+            Your email is invalid.
+          </small>
+        </div>
+      </div>
+
+      <div class="form-check">
+        <label class="form-check-label" for="activated">
+          <input
+            class="form-check-input"
+            [attr.disabled]="user.id === undefined ? 'disabled' : null"
+            type="checkbox"
+            id="activated"
+            name="activated"
+            formControlName="activated"
+          />
+          <span class="block text-gray-700 text-sm font-semibold mb-2" >Activated</span>
+        </label>
+      </div>
+
+      <div class="form-group">
+        <div class="mb-4 mt-6">
+        <label class="block text-gray-700 text-sm font-semibold mb-2">Profiles</label>
+        <select class="form-control" multiple name="authority" formControlName="authorities" 
+        >
+          <option *ngFor="let authority of authorities" [value]="authority">{{ authority }}</option>
+        </select>
+        </div>
+      </div>
+  
+
+      <button type="button"  class="w-full bg-gray-800 hover:bg-grey-900 text-white text-sm py-2 px-4 font-semibold rounded focus:outline-none focus:shadow-outline h-10" (click)="previousState()">
+        <mat-icon icon="ban"></mat-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+      </button>
+
+      <button type="submit" [disabled]="editForm.invalid || isSaving" class="w-full bg-gray-800 hover:bg-grey-900 text-white text-sm py-2 px-4 font-semibold rounded focus:outline-none focus:shadow-outline h-10">
+        <mat-icon icon="save"></mat-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+      </button>
+
+  </form>
+</div></div></div>

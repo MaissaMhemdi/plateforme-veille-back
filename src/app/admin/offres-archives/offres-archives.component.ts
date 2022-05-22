@@ -26,7 +26,9 @@ export class OffresArchivesComponent implements OnInit {
      this.getOffresarchives();
      
    }
-
+   detailsOffre(id: string) {
+    this.router.navigate(['/dashadmin/detail', id]);
+  }
    private getOffresarchives() {
     this.offresService.getOffresListArchives(this.pageSize,this.pageElement)
     .subscribe(data => {

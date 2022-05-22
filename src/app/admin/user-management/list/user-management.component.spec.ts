@@ -12,11 +12,12 @@ import { User } from '../user-management.model';
 
 import { UserManagementComponent } from './user-management.component';
 import { AccountService } from 'src/app/core/auth/account.service';
+import { UserService } from 'src/app/dashboard/service/user.service';
 
 describe('User Management Component', () => {
   let comp: UserManagementComponent;
   let fixture: ComponentFixture<UserManagementComponent>;
-  let service: UserManagementService;
+  let service: UserService;
   let mockAccountService: AccountService;
   const data = of({
     defaultSort: 'id,asc',

@@ -29,3 +29,5 @@
     }
   }
 }
+button:disabled { background-color: adjust-hue($color: #c5c5c5, $degrees: 0);}
+button{ background-color: adjust-hue($color: #3608ce, $degrees: 0);}

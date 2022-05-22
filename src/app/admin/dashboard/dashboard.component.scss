@@ -7,7 +7,17 @@
 *::after {
     box-sizing: border-box;
 }
-
+.mm{
+    padding-top: 2.5rem;
+    padding-bottom: 32.5rem;
+}
+.font-normal {
+    font-weight: 400;
+    font-family: none;
+    font-size: 30px;
+    flood-color: currentcolor;
+    color: #388e3c;
+}
 div {
     display: block;
 }

@@ -18,6 +18,7 @@ export class SignupComponent {
   errorEmailExists = false;
   errorUserExists = false;
   success = false;
+  checkErrors = false;
 
   registerForm = this.fb.group({
     login: [
@@ -30,12 +31,16 @@ export class SignupComponent {
       ],
     ],
     email: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(254), Validators.email]],
+    firstName: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(10)]],
+    lastName: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(10)]],
     password: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(50)]],
     confirmPassword: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(50)]],
+    rememberMe: [false],
+
   });
 
   constructor(private registerService: RegisterService, private fb: FormBuilder) {}
-
+ 
   ngAfterViewInit(): void {
     if (this.login) {
       this.login.nativeElement.focus();
@@ -47,15 +52,26 @@ export class SignupComponent {
     this.error = false;
     this.errorEmailExists = false;
     this.errorUserExists = false;
+    this.checkErrors==true;
+    const rem = this.registerForm.get(['rememberMe'])!.value;
+    if(rem !== true) {
+      console.log("errooooorr " + this.registerForm.get('rememberMe').value);
+      this.checkErrors==false;
 
+    }
     const password = this.registerForm.get(['password'])!.value;
     if (password !== this.registerForm.get(['confirmPassword'])!.value) {
       this.doNotMatch = true;
     } else {
+
       const login = this.registerForm.get(['login'])!.value;
       const email = this.registerForm.get(['email'])!.value;
+      const firstName= this.registerForm.get(['firstName'])!.value;
+      const lastName= this.registerForm.get(['lastName'])!.value;
+
+
       this.registerService
-        .save({ login, email, password })
+        .save({ login,firstName, lastName, email, password  ,langKey: "fr"  })
         .subscribe({ next: () => (this.success = true), error: response => this.processError(response) });
     }
   }

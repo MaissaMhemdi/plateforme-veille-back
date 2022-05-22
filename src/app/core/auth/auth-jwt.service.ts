@@ -9,6 +9,7 @@ import { Login } from 'src/app/auth/login/login.model';
 import { Account } from './account.model';
 import { AccountService } from './account.service';
 
+
 type JwtToken = {
   id_token: string;
   user:User;
@@ -33,6 +34,7 @@ const API_URL = '/api';
 
 @Injectable({ providedIn: 'root' })
 export class AuthServerProvider {
+  tokenresp: any;
 
   constructor(
     private http: HttpClient,
@@ -43,6 +45,8 @@ export class AuthServerProvider {
   ) {}
   ACCESS_TOKEN = 'access_token';
   USER_CONNECT = 'user_connect';
+  Authourities = 'authorities';
+
   getToken(): string {
     const tokenInLocalStorage= localStorage.getItem('access_token');
     const tokenInsessionStorage= sessionStorage.getItem('access_token');
@@ -78,19 +82,29 @@ export class AuthServerProvider {
   }
  authenticateSuccess(response: JwtToken, rememberMe: boolean): void {
     const jwt = response.id_token;
-    const username = response.user.firstName;
+    const username = response.user;
+    const authouritie = response.user.authorities;
 
     if (rememberMe) {
       localStorage.setItem(this.ACCESS_TOKEN, jwt)
-      localStorage.setItem(this.USER_CONNECT, username)
+      localStorage.setItem(this.USER_CONNECT, JSON.stringify(username))
+      localStorage.setItem(this.Authourities, JSON.stringify(authouritie))
 
       sessionStorage.clear();
 
     } else {
       sessionStorage.setItem('access_token', jwt);
-      sessionStorage.setItem('user_connect', username);
+      sessionStorage.setItem('user_connect',JSON.stringify(username));
 
       localStorage.clear();
     }
   }
+
+  GetRolebyToken(token: any) {
+    let _token = token.split('.')[1];
+    this.tokenresp = JSON.parse(atob(_token))
+    console.log("ttttttttt",this.tokenresp.sub)
+    return this.tokenresp.sub;
+  }
+ 
 }

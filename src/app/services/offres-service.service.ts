@@ -41,4 +41,8 @@ export class OffresServiceService {
   return this.http.get(`${this.baseUrl}/offre`);
 
  }
+ 
+ getOffresUser(): Observable<any> {
+  return this.http.get(`${this.baseUrl}/offresuser`);
+}
 }

@@ -9,6 +9,7 @@ export class Offre {
   domaine: string | undefined;
   pays: string | undefined;
   archives: string | undefined;
+  status: string | undefined;
   categories: string | undefined;
   datePub: string | undefined;
   dateExp: string | undefined;

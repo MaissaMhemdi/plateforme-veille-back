@@ -6,6 +6,8 @@ import { User, IUser } from './user-management.model';
 
 import { UserManagementComponent } from './list/user-management.component';
 import { UserService } from 'src/app/dashboard/service/user.service';
+import { UpdateComponent } from './update/update.component';
+import { AjoutComponent } from './ajout/ajout.component';
 
 
 @Injectable({ providedIn: 'root' })
@@ -25,9 +27,20 @@ export const userManagementRoute: Routes = [
   {
     path: '',
     component: UserManagementComponent,
-  
+
   },
  
+  {
+    path: ':login/edit',
+    component: UpdateComponent,
 
+  },
+  {
+    path: 'new',
+    component: UpdateComponent,
+    resolve: {
+      user: UserManagementResolve,
+    },
+  },
   
 ];
